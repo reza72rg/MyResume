@@ -1,0 +1,24 @@
+{% load static %}
+<div class="comments-area">
+    <h4>{{ comment | length }} Comments</h4>
+    <div class="comment-list">
+        <div class="single-comment justify-content-between d-flex">
+            <div class="user justify-content-between d-flex">
+                {% for com  in comment %}
+                <div class="thumb">
+                    <img src="{% static 'blog/img/blog/c1.jpg' %}" alt="">
+                </div>
+                <div class="desc">
+                    <h5><a href="#">{{com.name}}</a></h5>
+                    <p class="date">{{com.created_date| timesince}} </p>
+                    <p class="comment">
+                        {{com.message}}
+                    </p>
+                </div>
+                {% empty %}
+                <p> No comments here </p>
+           {% endfor %} 
+        </div>
+        </div>
+    </div>	                             				
+</div>

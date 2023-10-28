@@ -1,0 +1,45 @@
+{% load static %}
+<div class="navigation-area">
+    <div class="row">
+        
+        <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
+            
+            <div class="thumb">
+                {% if Prev_post %}
+                <a href="{% url 'blog:blog-details' pid=Prev_post.id  %}"><img class="img-fluid" style="max-width: 100px;" src="{{Prev_post.image.url}}"  alt=""></a>
+            </div>
+            <div class="arrow">
+                <a href="{% url 'blog:blog-details' pid=Prev_post.id  %}"><span class="lnr text-white lnr-arrow-left"></span></a>
+            </div>
+            <div class="detials">
+                <p>Prev Post</p>         
+                <a href="{% url 'blog:blog-details' pid=Prev_post.id  %}"><h4>{{Prev_post.title}}</h4></a>   
+                {% endif %}       
+            </div>
+  
+        </div>
+        
+        {% if Next_post %}
+       
+        <div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
+            
+            <div class="detials">
+                
+                <p>Next Post</p>
+                <a href="{% url 'blog:blog-details' pid=Next_post.id  %}"><h4>{{Next_post.title}}</h4></a>
+            </div>
+            <div class="arrow">
+                <a href="{% url 'blog:blog-details' pid=Next_post.id  %}"><span class="lnr text-white lnr-arrow-right"></span></a>
+            </div>
+            <div class="thumb">
+                <a href="{% url 'blog:blog-details' pid=Next_post.id  %}"><img class="img-fluid" style="max-width: 100px;" src="{{Next_post.image.url}}" width="100px" alt=""></a>
+               	
+            </div>	
+           		
+        </div>	
+        	
+   	
+    </div>
+   	
+</div>
+{% endif %}	
