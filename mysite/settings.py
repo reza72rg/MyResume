@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'blog',
     'accounts.apps.AccountsConfig',
     'captcha',
+    'django_cleanup.apps.CleanupConfig',
     
     #'robots',
     #'sitemap',
@@ -124,7 +125,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-
+STATICFILES_DIRS = [
+    BASE_DIR / "assets"
+]
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'static'
 

@@ -1,19 +1,21 @@
 {% extends 'base.html'%}
 {% load static %}
+{% block title %}Home{% endblock %}
+
 {% block content%}
-
-
   <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex flex-column justify-content-center">
+  <section id="hero" class="d-flex flex-column justify-content-center" style="background-image: url('{{informations.image.url}}');">
+    
     <div class="container" data-aos="zoom-in" data-aos-delay="100">
-      <h1>Reza Latifi</h1>
-      <p>I'm <span class="typed" data-typed-items="Designer, Developer, Freelancer, Photographer,BackEnd"></span></p>
+      <h1>{{informations.author.get_full_name}}</h1>
+      <p>I'm <span class="typed" data-typed-items="{{informations.my_works}}"></span></p>
       <div class="social-links">
         <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-        <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-        <a href="www.linkedin.com/in/reza-latifi-1372rg" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+        <a href="{{ informations.telegram }}" class="telegram"><i class="bi bi-telegram"></i></a>
+        <a href="{{ informations.instagram }}" class="instagram"><i class="bi bi-instagram"></i></a>
+        <a href="mailto:{{ informations.email }}" class="google-plus"><i class="bi bi-envelope-fill"></i></a>
+        <a href="{{ informations.whatsapp }}" class="whatsapp"><i class="bi bi-whatsapp"></i></a>
+        <a href="{{ informations.linkedin }}" class="linkedin"><i class="bx bxl-linkedin"></i></a>
       </div>
     </div>
   </section><!-- End Hero -->

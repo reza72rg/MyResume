@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
-from accounts.models import ProfileUser
+
 # Create your views here.
 
 def blog_view(request,**kwargs):
@@ -44,14 +44,14 @@ class Blog_Details_View(LoginRequiredMixin, View):
     
     def get(self,request,*args, **kwargs):
         if not self.post_instance.login_require:
-            profileuser =  ProfileUser.objects.get(pk=self.post_instance.author_id)
+         
             can_like = False
             if request.user.is_authenticated and self.post_instance.user_can_like(request.user):
                 can_like = True
             self.post_instance.counted_views +=1
             self.post_instance.save()
             form = self.form_class()
-            content = {'post':self.post_instance,'comment': self.comment_inctance,'form':form,'can_like':can_like,'images':self.images_instance,'profileuser':profileuser}
+            content = {'post':self.post_instance,'comment': self.comment_inctance,'form':form,'can_like':can_like,'images':self.images_instance}
             return render (request , self.template_name,content)
         else:
             return redirect('accounts:login')

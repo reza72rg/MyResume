@@ -7,8 +7,8 @@ app_name = 'blog'
 urlpatterns = [
     path('',blog_view, name ='blog'),
     path('post-<int:post_id>/<slug:post_slug>/',Blog_Details_View.as_view(), name ='blog-details'),
-    path('category <str:cat_name>',blog_view, name ='category'),
-    path('author <str:author_username>/',blog_view,name ='author'),
+    path('category/ <str:cat_name>',blog_view, name ='category'),
+    path('author /<str:author_username>/',blog_view,name ='author'),
     path('search',Searchview.as_view(),name ='search'),
     path("rss/feed/", LatestEntriesFeed()),
     path('like-<int:post_id>/',LikePost_View.as_view(), name ='like'),
