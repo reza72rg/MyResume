@@ -1,6 +1,6 @@
 from django.contrib import admin
 from blog.models import Post,Category,Comment,VoteUser,PostImage
-#from django_summernote.admin import SummernoteModelAdmin
+from django_summernote.admin import SummernoteModelAdmin
 # Register your models here.
 
 class ProductImageInline(admin.TabularInline):
@@ -10,21 +10,22 @@ class ProductImageInline(admin.TabularInline):
 
 
 @admin.register(Post)
-class PostAdmin(admin.ModelAdmin):
+class PostAdmin(SummernoteModelAdmin):
     inlines = [ProductImageInline]
 
     def get_fields(self, request, obj=None):
-        return ["image", "author", "title", "slug", "content", "category", "counted_views", "status", "published_date",  "login_require"]
+        return ["image", "author", "title", 'tags',"slug", "content", "category", "counted_views", "status", "published_date",  "login_require"]
 
     def get_list_display(self, request):
-        return ["author", "title", "counted_views", "status"]
+        return ["image_tag","author", "title", "counted_views", "status"]
 
     def get_search_fields(self, request):
         return ["author", "title", "counted_views", "status"]
 
     def get_list_filter(self, request, filters=None):
         return ["author", "title", "counted_views", "status"]
-    
+    def get_summernote_fields (self,request):
+        return ['content']
 
     
 class PostComment(admin.ModelAdmin):

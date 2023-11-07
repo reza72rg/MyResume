@@ -17,8 +17,9 @@ def total_sum():
 def total_sum():
     posts = Post.objects.filter(status=1)
     return posts
+
 @register.filter
-def snipped(value,arg=20):
+def snipped(value,arg=10):
     return value[:arg]+' ...'
 
 @register.inclusion_tag('blog/recent-posts.html')

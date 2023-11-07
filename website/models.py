@@ -5,7 +5,7 @@ from django.db.models.fields.files import ImageFieldFile
 from PIL import Image
 from io import BytesIO
 from django.core.files import File
-
+from mysite.tools import UploadToPathAndRename
 
 def get_image_field(self):
     output = []
@@ -43,7 +43,7 @@ class MainModel(models.Model):
 class Contact(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField()
-    subject = models.CharField(max_length=255, blank=True)
+    subject = models.CharField(max_length=255, blank=True, null=True)
     message = models.TextField()
     
     def __str__(self):
@@ -57,7 +57,7 @@ class NewsLetter(models.Model):
 
 class Information(MainModel):
     author = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
-    image = models.ImageField(upload_to='website',default='website/defualt.jpg')
+    image = models.ImageField(upload_to=UploadToPathAndRename("website"),default='website/defualt.jpg')
     job = models.CharField(max_length=100)
     title = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
@@ -83,15 +83,19 @@ class Information(MainModel):
 class Skill(models.Model):
     author = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
     title = models.TextField()
+    def __str__(self):
+        return str(self.author)
      
 class My_Skill(models.Model):
     author = models.ForeignKey(Skill,on_delete=models.SET_NULL,null=True)
     skill = models.CharField(max_length=20)
     percent = models.PositiveIntegerField(default=0)
+    def __str__(self):
+        return str(self.author)
     
     
     
 class UserImage(MainModel):
     username = models.ForeignKey(Information, on_delete=models.CASCADE)
-    image_more = models.ImageField(upload_to='website',default='website/defualt.jpg')
+    image_more = models.ImageField(upload_to=UploadToPathAndRename("website"),default='website/defualt.jpg')
 

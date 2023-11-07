@@ -6,8 +6,10 @@ from django.db.models.fields.files import ImageFieldFile
 from PIL import Image
 from io import BytesIO
 from django.core.files import File
-
-
+from taggit.managers import TaggableManager
+from mysite.tools import UploadToPathAndRename
+from django.conf import settings
+from django.utils.safestring import mark_safe
 def get_image_field(self):
     output = []
     for k, v in self.__dict__.items():
@@ -47,13 +49,12 @@ class Category(models.Model):
 # Create your models here.
 
 class Post(MainModel): 
-    image = models.ImageField(upload_to='blog',default='blog/defualt.jpg')
+    image = models.ImageField(upload_to=UploadToPathAndRename("blog"),default='blog/defualt.jpg')
     author = models.ForeignKey(User,on_delete=models.SET_NULL,null=True, related_name='posts_author')
     title = models.CharField(max_length=255)
     slug = models.SlugField()
     content = models.TextField()
-    #tags = TaggableManager()
-
+    tags = TaggableManager()
     category = models.ManyToManyField(Category)
     counted_views = models.IntegerField(default=0)
     status = models.BooleanField(default=False)
@@ -61,6 +62,11 @@ class Post(MainModel):
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
     login_require = models.BooleanField(default=False)
+    
+    def image_tag(self):
+        return mark_safe(f'<img src="{settings.MEDIA_URL}{self.image}" height="50" />')
+    image_tag.allow_tags = True
+    image_tag.short_description = "---"
     
     def get_absolute_url(self):
        return reverse("blog:blog-details", args=(self.id, self.slug))
@@ -98,7 +104,7 @@ class VoteUser(models.Model):
     
 class PostImage(models.Model):
     product = models.ForeignKey(Post, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='blog',default='blog/defualt.jpg')
+    image = models.ImageField(upload_to=UploadToPathAndRename("blog"),default='blog/defualt.jpg')
 
     def __unicode__(self):
         return self.product.title
