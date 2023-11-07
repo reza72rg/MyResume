@@ -6,6 +6,7 @@ from PIL import Image
 from io import BytesIO
 from django.core.files import File
 
+
 def get_image_field(self):
     output = []
     for k, v in self.__dict__.items():
@@ -56,7 +57,7 @@ class NewsLetter(models.Model):
 
 class Information(MainModel):
     author = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
-    image = models.ImageField(upload_to='website/%y/',default='website/defualt.jpg')
+    image = models.ImageField(upload_to='website',default='website/defualt.jpg')
     job = models.CharField(max_length=100)
     title = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
@@ -92,5 +93,5 @@ class My_Skill(models.Model):
     
 class UserImage(MainModel):
     username = models.ForeignKey(Information, on_delete=models.CASCADE)
-    image_more = models.ImageField(upload_to='website/%y/',default='website/defualt.jpg')
+    image_more = models.ImageField(upload_to='website',default='website/defualt.jpg')
 

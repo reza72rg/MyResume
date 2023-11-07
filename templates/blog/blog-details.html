@@ -1,4 +1,5 @@
 {% extends 'base_blog.html'%}
+{% load humanize %}
 {% load static %}
 {% block content%}
 {% load blog_tags %} 
@@ -21,7 +22,7 @@
 									<div class="user-details row">
 										<p class="user-name col-lg-12 col-md-12 col-6"><a href="{% url 'blog:author' author_username=post.author.username %}"></i>{{post.author.get_full_name}}</a> <span class="lnr lnr-user"></span></p>
 										<p class="date col-lg-12 col-md-12 col-6"><a>{{post.published_date|date:"d M Y"}}</a> <span class="lnr lnr-calendar-full"></span></p>
-										<p class="view col-lg-12 col-md-12 col-6"><a>{{post.counted_views}} Views</a> <span class="lnr lnr-eye"></span></p>
+										<p class="view col-lg-12 col-md-12 col-6"><a>{{post.counted_views|intcomma}} Views</a> <span class="lnr lnr-eye"></span></p>
 										<p class="comments col-lg-12 col-md-12 col-6"><a>{{ comment | length }} Comments</a> <span class="lnr lnr-bubble"></span></p>
 										<p class="comments col-lg-12 col-md-12 col-6"><a>{{post.like_count}} Like</a><span class="lnr lnr-thumbs-up"></span></p>	
 										<ul class="social-links col-lg-12 col-md-12 col-6">

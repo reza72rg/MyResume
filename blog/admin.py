@@ -1,5 +1,6 @@
 from django.contrib import admin
 from blog.models import Post,Category,Comment,VoteUser,PostImage
+#from django_summernote.admin import SummernoteModelAdmin
 # Register your models here.
 
 class ProductImageInline(admin.TabularInline):
@@ -23,6 +24,8 @@ class PostAdmin(admin.ModelAdmin):
 
     def get_list_filter(self, request, filters=None):
         return ["author", "title", "counted_views", "status"]
+    
+
     
 class PostComment(admin.ModelAdmin):
     date_hierarchy = 'created_date'

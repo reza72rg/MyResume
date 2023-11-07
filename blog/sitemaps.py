@@ -16,5 +16,5 @@ class BlogSitemap(Sitemap):
     
      
     def location(self,item):
-        return reverse("blog:single", kwargs={"pid": item.id})
+       return reverse("blog:blog-details", args=(item.id, item.slug))
     

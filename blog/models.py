@@ -7,6 +7,7 @@ from PIL import Image
 from io import BytesIO
 from django.core.files import File
 
+
 def get_image_field(self):
     output = []
     for k, v in self.__dict__.items():
@@ -44,13 +45,15 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 # Create your models here.
+
 class Post(MainModel): 
-    image = models.ImageField(upload_to='blog/%y/',default='blog/defualt.jpg')
+    image = models.ImageField(upload_to='blog',default='blog/defualt.jpg')
     author = models.ForeignKey(User,on_delete=models.SET_NULL,null=True, related_name='posts_author')
     title = models.CharField(max_length=255)
     slug = models.SlugField()
     content = models.TextField()
     #tags = TaggableManager()
+
     category = models.ManyToManyField(Category)
     counted_views = models.IntegerField(default=0)
     status = models.BooleanField(default=False)
@@ -95,7 +98,7 @@ class VoteUser(models.Model):
     
 class PostImage(models.Model):
     product = models.ForeignKey(Post, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='blog/%y/',default='blog/defualt.jpg')
+    image = models.ImageField(upload_to='blog',default='blog/defualt.jpg')
 
     def __unicode__(self):
         return self.product.title

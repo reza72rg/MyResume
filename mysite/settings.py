@@ -40,11 +40,18 @@ INSTALLED_APPS = [
     'website.apps.WebsiteConfig',
     'blog',
     'accounts.apps.AccountsConfig',
+    'taggit',
     'captcha',
     'django_cleanup.apps.CleanupConfig',
+    'django.contrib.humanize',
+    'django_extensions',
+    'django.contrib.sitemaps',
+    'django.contrib.sites',
+    'robots',
+    'debug_toolbar',
+    'django_summernote',
     
-    #'robots',
-    #'sitemap',
+
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -55,8 +62,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
+SITE_ID = 2
 ROOT_URLCONF = 'mysite.urls'
 
 TEMPLATES = [
@@ -148,3 +157,11 @@ EMAIL_PORT = 587
 EMAIL_HOST_PASSWORD = 'ykidyyjksktkbvoz'
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'rezaRG website'
+
+
+
+INTERNAL_IPS = [
+    # ...
+    "127.0.0.1",
+    # ...
+]
