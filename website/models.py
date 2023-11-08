@@ -7,6 +7,7 @@ from io import BytesIO
 from django.core.files import File
 from mysite.tools import UploadToPathAndRename
 
+
 def get_image_field(self):
     output = []
     for k, v in self.__dict__.items():
@@ -98,4 +99,5 @@ class My_Skill(models.Model):
 class UserImage(MainModel):
     username = models.ForeignKey(Information, on_delete=models.CASCADE)
     image_more = models.ImageField(upload_to=UploadToPathAndRename("website"),default='website/defualt.jpg')
+
 

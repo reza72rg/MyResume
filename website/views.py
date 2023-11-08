@@ -31,6 +31,8 @@ def contact_view(request):
         if form.is_valid():
             form.save()
             messages.add_message(request, messages.SUCCESS, 'Thanks . Your message has been received.')
+        else:
+            messages.error(request,'Please inter correct pattern .','error')
     form = ContactForm()
     informations = Information.objects.all().first()
     context = {'informations':informations,'form':form}

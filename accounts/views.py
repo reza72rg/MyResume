@@ -47,7 +47,7 @@ class UserLoginView(View):
             
         else:
             messages.error(request,'username or password is wrong','danger')
-            #messages.success(request,'Thanks . Your message has been received.','success')        
+      
         return render(request,self.template_name,{'form':form})   
          
 
@@ -55,7 +55,7 @@ class UserLogOut(LoginRequiredMixin, View):
     login_url = 'accounts/login.html'  
     def get(self,request):
         logout(request)
-        messages.success(request, 'This is a success message.')
+        messages.success(request, 'you are logout successfuly.')
         return redirect('/')
         
    
@@ -78,9 +78,11 @@ class RegisterView(View):
         if form.is_valid():
             cd = form.cleaned_data
             User.objects.create_user(cd['username'],cd['email'],cd['password1'])
-          
             messages.success(request,'Thanks . Your registration was successfuly plase log in.','success')
             return redirect('accounts:login')
+        else:
+            messages.error(request,'Please input the correct password','danger')
+            
         return render(request,self.template_name,{'form':form})
 
 class UserPasswordResetView(auth_views.PasswordResetView):

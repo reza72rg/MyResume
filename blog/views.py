@@ -63,7 +63,9 @@ class Blog_Details_View(LoginRequiredMixin, View):
             newcomment = form.save(commit=False)
             newcomment.post = self.post_instance
             newcomment.save()
-            messages.success(request,'Thanks . Thanks . Your message has been received.','success')
+            messages.success(request,'Thanks . Your comment has been received.','success')
+        else:
+            messages.error(request,'Please inter correct pattern .','error')
         return redirect('blog:blog-details', self.post_instance.id, self.post_instance.slug) 
       
 

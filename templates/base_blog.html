@@ -20,7 +20,8 @@
 		<!-- Site Title -->
 		<title>{% block title %} {% endblock %}</title>
 		
-
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+ 
 		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
 		<!--
 			CSS
@@ -211,7 +212,53 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script src="{% static 'blog/js/owl.carousel.min.js' %}"></script>							
 <script src="{% static 'blog/js/mail-script.js' %}"></script>	
 <script src="{% static 'blog/js/main.js' %}"></script>	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'website/css/toastr.min.css' %}" media="all">
+  <script type="text/javascript" src="{% static 'website/js/toastr.min.js' %}"></script>  
 
+  <script>
+  {% if messages %}
+  document.addEventListener("DOMContentLoaded", function(event) {
+      toastr.options = { "closeButton": true, "debug": false, "newestOnTop": true,
+          "progressBar": false, "positionClass": "toast-top-right", "preventDuplicates": true,
+          "onclick": null, "showDuration": "300", "hideDuration": "1000", "timeOut": "5000",
+          "extendedTimeOut": "1000", "showEasing": "swing", "hideEasing": "linear",
+          "showMethod": "fadeIn", "hideMethod": "fadeOut" };
+      {% autoescape off %}
+          {% for msg in messages %}
+              toastr.{{ msg.level_tag }}("{{ msg }}");
+          {% endfor %}
+      {% endautoescape %}
+  });
+{% endif %}
+</script>
+<script>
+    $(function() {
+
+      // Add refresh button after field (this can be done in the template as well)
+      $('img.captcha').after(
+              $('<a href="#void" class="captcha-refresh" > <i class="fa fa-refresh" style="font-size:24px"></i> </a>')
+              );
+  
+      // Click-handler for the refresh-link
+      $('.captcha-refresh').click(function(){
+          var $form = $(this).parents('form');
+          var url = location.protocol + "//" + window.location.hostname + ":"
+                    + location.port + "/captcha/refresh/";
+  
+          // Make the AJAX-call
+          $.getJSON(url, {}, function(json) {
+              $form.find('input[name="captcha_0"]').val(json.key);
+              $form.find('img.captcha').attr('src', json.image_url);
+          });
+  
+          return false;
+      });
+  });
+
+
+
+  </script>
 
 
 </body>

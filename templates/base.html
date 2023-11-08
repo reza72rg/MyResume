@@ -1,4 +1,6 @@
 {% load static %}
+{% load i18n %}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,11 +14,10 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="{% static 'base/favicon.png' %} " rel="icon">
-  <link href="{% static 'base/apple-touch-icon.png' %} " rel="apple-touch-icon">
-  
- 
-  
+  <link href="{% static 'assets/base/favicon.png' %} " rel="icon">
+  <link href="{% static 'assets/base/apple-touch-icon.png' %} " rel="apple-touch-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
@@ -27,7 +28,7 @@
   <link href="{% static 'website/vendor/boxicons/css/boxicons.min.css' %} " rel="stylesheet">
   <link href="{% static 'website/vendor/glightbox/css/glightbox.min.css' %} " rel="stylesheet">
   <link href="{% static 'website/vendor/swiper/swiper-bundle.min.css' %} " rel="stylesheet">
-
+  <link href="{% static 'website/css/toastr.min.css' %}" rel="stylesheet">
   <!-- Template Main CSS File -->
   <link href="{% static 'website/css/style.css' %} " rel="stylesheet">
 
@@ -41,7 +42,7 @@
 </head>
 
 <body>
- 
+
   <!-- ======= Mobile nav toggle button ======= -->
   <!-- <button type="button" class="mobile-nav-toggle d-xl-none"><i class="bi bi-list mobile-nav-toggle"></i></button> -->
   <i class="bi bi-list mobile-nav-toggle d-lg-none"></i>
@@ -108,11 +109,59 @@
   <script src="{% static 'website/vendor/typed.js/typed.umd.js' %}"></script>
   <script src="{% static 'website/vendor/waypoints/noframework.waypoints.js' %}"></script>
   <script src="{% static 'website/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'website/js/toastr.min.js' %}"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'website/css/toastr.min.css' %}" media="all">
+  <script type="text/javascript" src="{% static 'website/js/toastr.min.js' %}"></script>  
+
+  <script>
+  {% if messages %}
+  document.addEventListener("DOMContentLoaded", function(event) {
+      toastr.options = { "closeButton": true, "debug": false, "newestOnTop": true,
+          "progressBar": false, "positionClass": "toast-top-right", "preventDuplicates": true,
+          "onclick": null, "showDuration": "300", "hideDuration": "1000", "timeOut": "5000",
+          "extendedTimeOut": "1000", "showEasing": "swing", "hideEasing": "linear",
+          "showMethod": "fadeIn", "hideMethod": "fadeOut" };
+      {% autoescape off %}
+          {% for msg in messages %}
+              toastr.{{ msg.level_tag }}("{{ msg }}");
+          {% endfor %}
+      {% endautoescape %}
+  });
+{% endif %}
+</script>
 
   <!-- Template Main JS File -->
   <script src="{% static 'website/js/main.js' %}"></script>
+  <script>
+    $(function() {
 
+      // Add refresh button after field (this can be done in the template as well)
+      $('img.captcha').after(
+              $('<a href="#void" class="captcha-refresh" > <i class="fa fa-refresh" style="font-size:24px"></i> </a>')
+              );
+  
+      // Click-handler for the refresh-link
+      $('.captcha-refresh').click(function(){
+          var $form = $(this).parents('form');
+          var url = location.protocol + "//" + window.location.hostname + ":"
+                    + location.port + "/captcha/refresh/";
+  
+          // Make the AJAX-call
+          $.getJSON(url, {}, function(json) {
+              $form.find('input[name="captcha_0"]').val(json.key);
+              $form.find('img.captcha').attr('src', json.image_url);
+          });
+  
+          return false;
+      });
+
+});
+
+  </script>
 
 </body>
 

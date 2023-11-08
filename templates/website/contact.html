@@ -16,7 +16,7 @@
 
         <div class="col-lg-4">
           <div class="info">
-            <div class="address">
+            <div class="address ">
               <i class="bi bi-geo-alt"></i>
               <h4>Location:</h4>
               <p>{{informations.address}}</p>
@@ -28,7 +28,7 @@
               <a href="mailto:{{ informations.email }}" >{{ informations.email }}</a>
             </div>
 
-            <div class="phone">
+            <div class="phone ">
               <i class="bi bi-phone"></i>
               <h4>Call:</h4>
               <p>{{informations.phone}}</p>
@@ -60,27 +60,26 @@
               <div class="form-group" mb-5 style="padding-bottom: 2%;"> 
               
               </div>
-    
-                 {{form.captcha}}
-                
-             <div style="padding-bottom: 2%;"><button type="submit" class="btn btn-success">Send Message</button></div>
+              {{form.captcha}}
+              <a href="#void"  class="captcha-refresh"> </a>
+              
              
+              
+             <div style="padding-bottom: 2%;"><button type="submit" class="btn btn-success m-3">Send Message</button></div>
+            
+
             </form>
-            {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                <div class="alert alert-dark" role="alert">
-                  Thanks, your message has been received
-                </div>
-                {% endfor %}
-            </ul>
-            {% endif %}
+            
         </div>
 
-      </div>
 
+
+       
+  
+      </div>
     </div>
   </section><!-- End Contact Section -->
 
+ 
 
 {% endblock %}
