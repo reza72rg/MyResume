@@ -1,0 +1,69 @@
+{% load static %}
+<!-- Bootstrap core JavaScript -->
+<script src="{% static 'blog/vendor/jquery/jquery.min.js' %} "></script>
+<script src="{% static 'blog/vendor/bootstrap/js/bootstrap.bundle.min.js' %} "></script>
+
+<!-- Additional Scripts -->
+<script src="{% static 'blog/assets/js/custom.js' %} "></script>
+<script src="{% static 'blog/assets/js/owl.js' %} "></script>
+<script src="{% static 'blog/assets/js/slick.js' %} "></script>
+<script src="{% static 'blog/assets/js/isotope.js' %} "></script>
+<script src="{% static 'blog/assets/js/accordions.js' %} "></script>
+
+<script language = "text/Javascript"> 
+  cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
+  function clearField(t){                   //declaring the array outside of the
+  if(! cleared[t.id]){                      // function makes it static and global
+      cleared[t.id] = 1;  // you could use true and false, but that's more typing
+      t.value='';         // with more chance of typos
+      t.style.color='#fff';
+      }
+  }
+</script>
+  <link rel="stylesheet" type="text/css" href="{% static 'website/css/toastr.min.css' %}" media="all">
+  <script type="text/javascript" src="{% static 'website/js/toastr.min.js' %}"></script>  
+  <script>
+  {% if messages %}
+  document.addEventListener("DOMContentLoaded", function(event) {
+      toastr.options = { "closeButton": true, "debug": false, "newestOnTop": true,
+          "progressBar": false, "positionClass": "toast-top-right", "preventDuplicates": true,
+          "onclick": null, "showDuration": "300", "hideDuration": "1000", "timeOut": "5000",
+          "extendedTimeOut": "1000", "showEasing": "swing", "hideEasing": "linear",
+          "showMethod": "fadeIn", "hideMethod": "fadeOut" };
+      {% autoescape off %}
+          {% for msg in messages %}
+              toastr.{{ msg.level_tag }}("{{ msg }}");
+          {% endfor %}
+      {% endautoescape %}
+  });
+{% endif %}
+</script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'website/js/main.js' %}"></script>
+  <script>
+    $(function() {
+
+      // Add refresh button after field (this can be done in the template as well)
+      $('img.captcha').after(
+              $('<a href="#void" class="captcha-refresh" > <i class="fa fa-refresh" style="font-size:24px"></i> </a>')
+              );
+  
+      // Click-handler for the refresh-link
+      $('.captcha-refresh').click(function(){
+          var $form = $(this).parents('form');
+          var url = location.protocol + "//" + window.location.hostname + ":"
+                    + location.port + "/captcha/refresh/";
+  
+          // Make the AJAX-call
+          $.getJSON(url, {}, function(json) {
+              $form.find('input[name="captcha_0"]').val(json.key);
+              $form.find('img.captcha').attr('src', json.image_url);
+          });
+  
+          return false;
+      });
+
+});
+
+  </script>

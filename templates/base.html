@@ -1,7 +1,5 @@
 {% load static %}
 {% load i18n %}
-
-
 <!DOCTYPE html>
 <html lang="en">
   <body style="background-color:AliceBlue">
@@ -14,24 +12,8 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="{% static 'assets/base/favicon.png' %} " rel="icon">
-  <link href="{% static 'assets/base/apple-touch-icon.png' %} " rel="apple-touch-icon">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="{% static 'website/vendor/aos/aos.css' %} " rel="stylesheet">
-  <link href="{% static 'website/vendor/bootstrap/css/bootstrap.min.css' %} " rel="stylesheet">
-  <link href="{% static 'website/vendor/bootstrap-icons/bootstrap-icons.css' %} " rel="stylesheet">
-  <link href="{% static 'website/vendor/boxicons/css/boxicons.min.css' %} " rel="stylesheet">
-  <link href="{% static 'website/vendor/glightbox/css/glightbox.min.css' %} " rel="stylesheet">
-  <link href="{% static 'website/vendor/swiper/swiper-bundle.min.css' %} " rel="stylesheet">
-  <link href="{% static 'website/css/toastr.min.css' %}" rel="stylesheet">
-  <!-- Template Main CSS File -->
-  <link href="{% static 'website/css/style.css' %} " rel="stylesheet">
-
+  {% include 'website/includes/head_references.html' %}
   <!-- =======================================================
   * Template Name: MyResume
   * Updated: Jun 13 2023 with Bootstrap v5.3.0
@@ -47,122 +29,20 @@
   <!-- <button type="button" class="mobile-nav-toggle d-xl-none"><i class="bi bi-list mobile-nav-toggle"></i></button> -->
   <i class="bi bi-list mobile-nav-toggle d-lg-none"></i>
   <!-- ======= Header ======= -->
-  <header id="header" class="d-flex flex-column justify-content-center">
- 
-    <nav id="navbar" class="navbar nav-menu">
-      <ul>
-        <li><a href="{% url 'website:index'%}"><i class="bx bx-home"></i> <span>Home</span></a></li>
-        <li><a href="{% url 'website:about'%}"><i class="bx bx-clipboard"></i> <span>About</span></a></li>
-        <li><a href="{% url 'website:resume'%}"><i class="bx bx-file-blank"></i> <span>Resume</span></a></li>
-        <li><a href="{% url 'website:skill'%}"><i class="bx bx-server"></i> <span>Skills</span></a></li>
-        <li><a href="{% url 'website:contact'%}"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
-        {% if request.user.is_authenticated %}
-        <li><a href="{% url 'accounts:logout' %}"><i class="bx bx-user"></i> <span>Logout</span></a></li>
-        {% else %}
-        <li><a href="{% url 'accounts:login' %}"><i class="bx bx-user"></i> <span>Login</span></a></li>
-        {% endif %}
-        <li><a href="{% url 'blog:blog'%}"><i class="bx bx-book-content"></i> <span>blog</span></a></li>
-       
-      </ul>
-    </nav><!-- .nav-menu -->
-
-  </header><!-- End Header -->
-  
+  {% include 'website/includes/header.html' %}
   {% block content %}
   
 
 
   {%endblock%}
 
-
-  
   <!-- ======= Footer ======= -->
-  
-  <footer id="footer" style="background-color: gainsboro">
-    <div class="container">
-      <h3>Reza Latifi</h3>
-      <p>Don’t wait for extraordinary opportunities. Seize common occasions and make them great..</p>
- 
-      <div class="copyright">
-        &copy; Copyright <strong><span>MyResume</span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: [license-url] -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/ -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-      </div>
-    </div>
-  </footer><!-- End Footer -->
 
+  {% include 'website/includes/footer.html' %}
   <div id="preloader"></div>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <!-- Vendor JS Files -->
-  <script src="{% static 'website/vendor/purecounter/purecounter_vanilla.js' %}"></script>
-  <script src="{% static 'website/vendor/aos/aos.js' %}"></script>
-  <script src="{% static 'website/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-  <script src="{% static 'website/vendor/glightbox/js/glightbox.min.js' %}"></script>
-  <script src="{% static 'website/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
-  <script src="{% static 'website/vendor/swiper/swiper-bundle.min.js' %}"></script>
-  <script src="{% static 'website/vendor/typed.js/typed.umd.js' %}"></script>
-  <script src="{% static 'website/vendor/waypoints/noframework.waypoints.js' %}"></script>
-  <script src="{% static 'website/vendor/php-email-form/validate.js' %}"></script>
-  <script src="{% static 'website/js/toastr.min.js' %}"></script>
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
-  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="{% static 'website/css/toastr.min.css' %}" media="all">
-  <script type="text/javascript" src="{% static 'website/js/toastr.min.js' %}"></script>  
-
-  <script>
-  {% if messages %}
-  document.addEventListener("DOMContentLoaded", function(event) {
-      toastr.options = { "closeButton": true, "debug": false, "newestOnTop": true,
-          "progressBar": false, "positionClass": "toast-top-right", "preventDuplicates": true,
-          "onclick": null, "showDuration": "300", "hideDuration": "1000", "timeOut": "5000",
-          "extendedTimeOut": "1000", "showEasing": "swing", "hideEasing": "linear",
-          "showMethod": "fadeIn", "hideMethod": "fadeOut" };
-      {% autoescape off %}
-          {% for msg in messages %}
-              toastr.{{ msg.level_tag }}("{{ msg }}");
-          {% endfor %}
-      {% endautoescape %}
-  });
-{% endif %}
-</script>
-
-  <!-- Template Main JS File -->
-  <script src="{% static 'website/js/main.js' %}"></script>
-  <script>
-    $(function() {
-
-      // Add refresh button after field (this can be done in the template as well)
-      $('img.captcha').after(
-              $('<a href="#void" class="captcha-refresh" > <i class="fa fa-refresh" style="font-size:24px"></i> </a>')
-              );
-  
-      // Click-handler for the refresh-link
-      $('.captcha-refresh').click(function(){
-          var $form = $(this).parents('form');
-          var url = location.protocol + "//" + window.location.hostname + ":"
-                    + location.port + "/captcha/refresh/";
-  
-          // Make the AJAX-call
-          $.getJSON(url, {}, function(json) {
-              $form.find('input[name="captcha_0"]').val(json.key);
-              $form.find('img.captcha').attr('src', json.image_url);
-          });
-  
-          return false;
-      });
-
-});
-
-  </script>
-
+  {% include 'website/includes/footer_references.html' %}
 </body>
 
 </html>

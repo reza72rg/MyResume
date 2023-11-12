@@ -1,186 +1,157 @@
 {% extends 'base_blog.html'%}
 {% load humanize %}
 {% load static %}
-{% block title %}Home Blog {% endblock %}
 {% block content%}
 {% load blog_tags %}
-				  
 
-			<!-- Start top-category-widget Area -->
-			<section class="top-category-widget-area pt-90 pb-90 ">
-				<div class="container">
-					<div class="row">		
-						<div class="col-lg-4">
-							<div class="single-cat-widget">
-								<div class="content relative">
-									<div class="overlay overlay-bg"></div>
-								    <a href="#" target="_blank">
-								      <div class="thumb">
-								  		 <img class="content-image img-fluid d-block mx-auto" src="{% static 'blog/img/blog/cat-widget1.jpg' %}" alt="">
-								  	  </div>
-								      <div class="content-details">
-								        <h4 class="content-title mx-auto text-uppercase">Social life</h4>
-								        <span></span>								        
-								        <p>Enjoy your social life together</p>
-								      </div>
-								    </a>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4">
-							<div class="single-cat-widget">
-								<div class="content relative">
-									<div class="overlay overlay-bg"></div>
-								    <a href="#" target="_blank">
-								      <div class="thumb">
-								  		 <img class="content-image img-fluid d-block mx-auto" src="{% static 'blog/img/blog/cat-widget2.jpg' %}" alt="">
-								  	  </div>
-								      <div class="content-details">
-								        <h4 class="content-title mx-auto text-uppercase">Politics</h4>
-								        <span></span>								        
-								        <p>Be a part of politics</p>
-								      </div>
-								    </a>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4">
-							<div class="single-cat-widget">
-								<div class="content relative">
-									<div class="overlay overlay-bg"></div>
-								    <a href="#" target="_blank">
-								      <div class="thumb">
-								  		 <img class="content-image img-fluid d-block mx-auto" src="{% static 'blog/img/blog/cat-widget3.jpg' %}" alt="">
-								  	  </div>
-								      <div class="content-details">
-								        <h4 class="content-title mx-auto text-uppercase">Food</h4>
-								        <span></span>
-								        <p>Let the food be finished</p>
-								      </div>
-								    </a>
-								</div>
-							</div>
-						</div>												
-					</div>
-				</div>	
-			</section>
-			<!-- End top-category-widget Area -->
-			
-			<!-- Start post-content Area -->
-			<section class="post-content-area">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-8 posts-list">
-							{% for post in posts %}
-							<div class="single-post row">
-								<div class="col-lg-3  col-md-3 meta-details">
 
-									{% include 'blog/blog-categories.html' %}
+    <title>Stand Blog Posts</title>
 
-									<div class="user-details row">
-										<p class="user-name col-lg-12 col-md-12 col-6"><a href="{% url 'blog:author' author_username=post.author.username%}">{{post.author.get_full_name}}</a> <span class="lnr lnr-user"></span></p>
-										<p class="date col-lg-12 col-md-12 col-6"><a>{{post.published_date|naturalday}}</a> <span class="lnr lnr-calendar-full"></span></p>
-										<p class="view col-lg-12 col-md-12 col-6"><a>{{post.counted_views|intcomma}} Views</a> <span class="lnr lnr-eye"></span></p>
-										<p class="comments col-lg-12 col-md-12 col-6"><a>{% comments_count post.id %} Comments</a> <span class="lnr lnr-bubble"></span></p>	
-										<p class="comments col-lg-12 col-md-12 col-6"><a>{% likes_count post.id %} Like</a><span class="lnr lnr-thumbs-up"></span></p>	
-														
-									</div>
-								</div>
-								<div class="col-lg-9 col-md-9 ">
-									<div class="feature-img">
-										<img class="img-fluid" src=" {{ post.image.url }}" alt="">
-									</div>
-									<a class="posts-title"  href="{{ post.get_absolute_url }}"><h3>{{post.title}}</h3></a>
-									<p class="excert">
-										{{ post.content|truncatewords:5|safe}}
-									</p>
-									<a href="{{ post.get_absolute_url }}" class="primary-btn">View More</a>
-								</div>
-							</div>
-								{% endfor %}					
 
-		                    <nav class="blog-pagination justify-content-center d-flex">
-							<ul class="pagination">
-							{% if posts.has_previous %}
-								<li class="page-item">
-									<a href="?page={{ posts.previous_page_number }}" class="page-link" aria-label="Previous">
-										<span aria-hidden="true">
-											<span class="lnr lnr-chevron-left"></span>
-										</span>
-									</a>
-								</li>
-								{% endif %}
-								{% for i in posts.paginator.page_range %}
-								<li class="page-item "><a href="?page={{i}}" class="page-link">{{i}}</a></li>
-								
-								{% endfor%}
-								{% if posts.has_next %}
-								<li class="page-item">
-									<a href="?page={{ posts.next_page_number }}" class="page-link" aria-label="Next">
-										<span aria-hidden="true">
-											<span class="lnr lnr-chevron-right"></span>
-										</span>
-									</a>
-								</li>
-								{% endif %}
-							</ul>
-						</nav>
-						</div>
-						<div class="col-lg-4 sidebar-widgets">
-							<div class="widget-wrap">
-								{% include 'blog/blog-search.html' %}
-							
-							
-							
-							
-							
-								{% populare_posts %}
+
+
+    <!-- Page Content -->
+    <!-- Banner Starts Here -->
+    <div class="heading-page header-text">
+      <section class="page-heading">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="text-content">
+                <h4>Recent Posts</h4>
+                <h2>Our Recent Blog Entries</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    
+    <!-- Banner Ends Here -->
+
+    <section class="call-to-action">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="main-content">
+              <div class="row">
+                <div class="col-lg-8">
+                  <span>Stand Blog HTML5 Template</span>
+                  <h4>Creative HTML Template For Bloggers!</h4>
+                </div>
+                <div class="col-lg-4">
+                  <div class="main-button">
+                    <a href="https://templatemo.com/tm-551-stand-blog" target="_parent">Download Now!</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="blog-posts grid-system">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="all-blog-posts">
+              
+              <div class="row">
+                {% for post in posts %}
+                <div class="col-lg-6">
+                  
+                  <div class="blog-post">
+                    <div class="blog-thumb">
+                    
+                      <img src="{{ post.image.url }} " alt="">
+                    </div>
+                    <div class="down-content">
+                      
+                      <a href="{{ post.get_absolute_url }}"><h4>{{post.title}}</h4></a>
+                      <ul class="post-info">
+                        <li><a href="{% url 'blog:author' author_username=post.author.username%}">{{post.author.get_full_name}}</a></li>
+                        <li><a >{{post.published_date|naturalday}}</a></li>
+                        <li><a>{{post.counted_views|intcomma}} Views</a></li>
+                        <li><a>{% comments_count post.id %} Comments</a></li>
+                        <li><a>{% likes_count post.id %} Like</a></li>
+                      </ul>
+                      <a href="{{ post.get_absolute_url }}">{{ post.content|truncatewords:15|safe}}</a>
+                      <div class="post-options">
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <ul class="post-tags">
+                              <li><i class="fa fa-tags"></i></li>
+                              <li><a>Best Templates</a>,</li>
+                              <li><a>TemplateMo</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>                
+                </div>
+                {% endfor%}
+
+
+                <div class="col-lg-12">
+                  <ul class="page-numbers">
+                    {% if posts.has_previous %}
+                    <li class="page-item">
+                      <a href="?page={{ posts.previous_page_number }}" class="page-link" aria-label="Previous">
+                        <span aria-hidden="true">
+                          <span class="fa fa-angle-double-left"></span>
+                        </span>
+                      </a>
+                    </li>
+                    {% endif %}
+                    {% for i in posts.paginator.page_range %}
+                    <li class="page-item "><a href="?page={{i}}" class="page-link">{{i}}</a></li>
+                    {% endfor%}
+							    	{% if posts.has_next %}
+                    <li class="page-item">
+                      <a href="?page={{ posts.next_page_number }}" class="page-link" aria-label="Next">
+                        <span aria-hidden="true">
+                          <span class="fa fa-angle-double-right"></span>
+                        </span>
+                      </a>
+                    </li>
+             
+                      {% endif %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="sidebar">
+              <div class="row">
+                <div class="col-lg-12">
+
+                  {% include 'blog/blog-search.html' %}	
+                </div>
+
+                {% populare_posts %}
 							
 							
 								{% recent_posts %}
-							
 
-								
+                {% categories_posts %}
+     
 
-
-								<div class="single-sidebar-widget ads-widget">
-									<a href="#"><img class="img-fluid" src="{% static 'blog/img/blog/ads-banner.jpg' %}" alt=""></a>
-								</div>
-								
-								{% categories_posts %}
+                
 
 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-								<div class="single-sidebar-widget newsletter-widget">
-									<h4 class="newsletter-title">Newsletter</h4>
-									<p>
-										Here, I focus on a range of items and features that we use in life without
-										giving them a second thought.
-									</p>
-									<div class="form-group d-flex flex-row">
-									   <div class="col-autos">
-									      <div class="input-group">
-									        <div class="input-group-prepend">
-									          <div class="input-group-text"><i class="fa fa-envelope" aria-hidden="true"></i>
-											</div>
-									        </div>
-									        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Enter email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email'" >
-									      </div>
-									    </div>
-									    <a href="#" class="bbtns">Subcribe</a>
-									</div>	
-									<p class="text-bottom">
-										You can unsubscribe at any time
-									</p>								
-								</div>
-								{% include 'blog/blog-tags.html' %}									
-							</div>
-						</div>
-					</div>
-				</div>	
-			</section>
-			<!-- End post-content Area -->
-			
-			
+    
+    {% endblock %}
 
-	{% endblock %}
+
+ 

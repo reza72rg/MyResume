@@ -1,24 +1,25 @@
 {% load static %}
-<div class="comments-area">
-    <h4>{{ comment | length }} Comments</h4>
-    <div class="comment-list">
-        <div class="single-comment justify-content-between d-flex">
-            <div class="user justify-content-between d-flex">
+<div class="col-lg-12">
+    <div class="sidebar-item comments">
+      <div class="sidebar-heading">
+        <h2>{{ comment | length }} Comments</h2>
+      </div>
+      <div class="content">
+        <ul>
+          <li>
+            <div class="author-thumb">
                 {% for com  in comment %}
-                <div class="thumb">
-                    <img src="{% static 'blog/img/blog/c1.jpg' %}" alt="">
-                </div>
-                <div class="desc">
-                    <h5><a href="#">{{com.name}}</a></h5>
-                    <p class="date">{{com.created_date| timesince}} </p>
-                    <p class="comment">
-                        {{com.message}}
-                    </p>
-                </div>
-                {% empty %}
-                <p> No comments here </p>
-           {% endfor %} 
-        </div>
-        </div>
-    </div>	                             				
-</div>
+              <img src="{% static 'blog/assets/images/comment-author-01.jpg'  %} " alt="">
+            </div>
+            <div class="right-content">
+              <h4>{{com.name}}<span>{{com.created_date| timesince}}</span></h4>
+              <p>  {{com.message}} .</p>
+            </div>
+          </li>
+          {% empty %}
+          <p> No comments here </p>
+     {% endfor %} 
+        </ul>
+      </div>
+    </div>
+  </div>

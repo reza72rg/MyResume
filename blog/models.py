@@ -10,6 +10,8 @@ from taggit.managers import TaggableManager
 from mysite.tools import UploadToPathAndRename
 from django.conf import settings
 from django.utils.safestring import mark_safe
+from django.utils.text import slugify
+
 def get_image_field(self):
     output = []
     for k, v in self.__dict__.items():
@@ -52,7 +54,7 @@ class Post(MainModel):
     image = models.ImageField(upload_to=UploadToPathAndRename("blog"),default='blog/defualt.jpg')
     author = models.ForeignKey(User,on_delete=models.SET_NULL,null=True, related_name='posts_author')
     title = models.CharField(max_length=255)
-    slug = models.SlugField()
+    slug = models.SlugField(null=True,blank=True,unique=True)
     content = models.TextField()
     tags = TaggableManager()
     category = models.ManyToManyField(Category)
@@ -63,6 +65,10 @@ class Post(MainModel):
     updated_date = models.DateTimeField(auto_now=True)
     login_require = models.BooleanField(default=False)
     
+    def save (self, force_insert = False, force_update=False, using=None,update_fields=None):
+        self.slug = slugify(self.title)
+        super(Post,self).save()
+        
     def image_tag(self):
         return mark_safe(f'<img src="{settings.MEDIA_URL}{self.image}" height="50" />')
     image_tag.allow_tags = True
@@ -82,8 +88,7 @@ class Post(MainModel):
             return True
         return False
     
-    
-class Comment(models.Model):
+class Comment(MainModel):
     post = models.ForeignKey(Post,on_delete = models.CASCADE)
     name = models.CharField(max_length=255)
     email = models.EmailField()

@@ -1,6 +1,15 @@
 {% load static %}
-  <ul class="tags">
-    {% for cat in post.category.all %}
-    <li><a href="{% url 'blog:category' cat_name=cat.name %}">{{ cat.name }} </a>{% if not forloop.last %},{% endif%}</a></li>
-  {% endfor %}
-  </ul>
+  <div class="col-lg-12">
+                  <div class="sidebar-item categories">
+                    <div class="sidebar-heading">
+                      <h2>Categories</h2>
+                    </div>
+                    {% for cat in post.category.all %}
+                    <div class="content">
+                      <ul>
+                        <li><a href="{% url 'blog:category' cat_name=cat.name %}">{{ cat.name }} </a>{% if not forloop.last %},{% endif%}</a></li>                  
+                      </ul>
+                    </div>
+                    {% endfor %}
+                  </div>
+                </div>

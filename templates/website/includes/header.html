@@ -1,0 +1,19 @@
+{% load static %}
+<header id="header" class="d-flex flex-column justify-content-center">
+     <nav id="navbar" class="navbar nav-menu">
+      <ul>
+        <li><a href="{% url 'website:index'%}"><i class="bx bx-home"></i> <span>Home</span></a></li>
+        <li><a href="{% url 'website:about'%}"><i class="bx bx-clipboard"></i> <span>About</span></a></li>
+        <li><a href="{% url 'website:resume'%}"><i class="bx bx-file-blank"></i> <span>Resume</span></a></li>
+        <li><a href="{% url 'website:skill'%}"><i class="bx bx-server"></i> <span>Skills</span></a></li>
+        <li><a href="{% url 'website:contact'%}"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+        {% if request.user.is_authenticated %}
+        <li><a href="{% url 'accounts:logout' %}"><i class="bx bx-user"></i> <span>Logout</span></a></li>
+        {% else %}
+        <li><a href="{% url 'accounts:login' %}"><i class="bx bx-user"></i> <span>Login</span></a></li>
+        {% endif %}
+        <li><a href="{% url 'blog:blog'%}"><i class="bx bx-book-content"></i> <span>blog</span></a></li>
+      </ul>
+    </nav><!-- .nav-menu -->
+  </header><!-- End Header -->
+  

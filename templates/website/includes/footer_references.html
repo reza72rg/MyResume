@@ -1,0 +1,62 @@
+{% load static %}
+  <!-- Vendor JS Files -->
+  <script src="{% static 'website/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+  <script src="{% static 'website/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'website/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'website/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'website/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'website/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'website/vendor/typed.js/typed.umd.js' %}"></script>
+  <script src="{% static 'website/vendor/waypoints/noframework.waypoints.js' %}"></script>
+  <script src="{% static 'website/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'website/js/toastr.min.js' %}"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'website/css/toastr.min.css' %}" media="all">
+  <script type="text/javascript" src="{% static 'website/js/toastr.min.js' %}"></script>  
+  <script>
+  {% if messages %}
+  document.addEventListener("DOMContentLoaded", function(event) {
+      toastr.options = { "closeButton": true, "debug": false, "newestOnTop": true,
+          "progressBar": false, "positionClass": "toast-top-right", "preventDuplicates": true,
+          "onclick": null, "showDuration": "300", "hideDuration": "1000", "timeOut": "5000",
+          "extendedTimeOut": "1000", "showEasing": "swing", "hideEasing": "linear",
+          "showMethod": "fadeIn", "hideMethod": "fadeOut" };
+      {% autoescape off %}
+          {% for msg in messages %}
+              toastr.{{ msg.level_tag }}("{{ msg }}");
+          {% endfor %}
+      {% endautoescape %}
+  });
+{% endif %}
+</script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'website/js/main.js' %}"></script>
+  <script>
+    $(function() {
+
+      // Add refresh button after field (this can be done in the template as well)
+      $('img.captcha').after(
+              $('<a href="#void" class="captcha-refresh" > <i class="fa fa-refresh" style="font-size:24px"></i> </a>')
+              );
+  
+      // Click-handler for the refresh-link
+      $('.captcha-refresh').click(function(){
+          var $form = $(this).parents('form');
+          var url = location.protocol + "//" + window.location.hostname + ":"
+                    + location.port + "/captcha/refresh/";
+  
+          // Make the AJAX-call
+          $.getJSON(url, {}, function(json) {
+              $form.find('input[name="captcha_0"]').val(json.key);
+              $form.find('img.captcha').attr('src', json.image_url);
+          });
+  
+          return false;
+      });
+
+});
+
+  </script>

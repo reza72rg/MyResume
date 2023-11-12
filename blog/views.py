@@ -21,7 +21,8 @@ def blog_view(request,**kwargs):
         posts = posts.filter(author__username = kwargs['author_username'])
     if kwargs.get('tag_name') != None:
         posts = posts.filter(tags__name__in = [kwargs['tag_name']])
-    posts = Paginator(posts,3)
+        
+    posts = Paginator(posts,2)
     try:
         page_number = request.GET.get('page')
         posts = posts.get_page(page_number)
@@ -59,7 +60,9 @@ class Blog_Details_View(LoginRequiredMixin, View):
             return redirect('accounts:login')
     def post(self,request,*args, **kwargs):
         form = self.form_class(request.POST)
+        print('form.name------',form)
         if form.is_valid():
+            print('hi')
             newcomment = form.save(commit=False)
             newcomment.post = self.post_instance
             newcomment.save()
