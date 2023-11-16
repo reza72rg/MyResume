@@ -3,6 +3,7 @@
 {% load static %}
 {% block content%}
 {% load blog_tags %}
+{% load social_share %}
 
     <title>Stand Blog - Post Details</title>
 
@@ -74,13 +75,7 @@
                         <div class="row">
                           <div class="col-6">
                             <ul class="post-tags">
-                              <li><i class="fa fa-tags"></i></li>
-                              <li><a>Best Templates</a>,</li>
-                              <li><a>TemplateMo</a></li>
-                            </ul>
-                          </div>
-                          <div class="col-6">
-                            <ul class="post-share">
+                            
                               {% if request.user.is_authenticated and not can_like  %}
                               <a href="{% url 'blog:like' post.id %}" class=" btn btn-primary  lnr lnr-thumbs-up col-md-3">Like </a>
                               {% elif request.user.is_authenticated and  can_like  %}
@@ -88,16 +83,23 @@
                               {% endif %}
                             </ul>
                           </div>
+                          <div class="col-6">
+                            <ul class="post-share">
+                                  <li><i class="fa fa-share-alt"></i></li>
+                                  <li>{% post_to_whatsapp post.get_absolute_url "WhatsApp" %}</li>,
+                                   <li> {% post_to_telegram "New Post: {{post.title}}" post.get_absolute_url %}</li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </div>
 
-
-                
-                {% include 'blog/blog-comment.html' %}
-
+                      {% include 'blog/blog-comment.html' %}
+           
+    
+                 
                 <div class="col-lg-12">
                   <div class="sidebar-item submit-comment">
                     <div class="sidebar-heading">
@@ -106,26 +108,11 @@
                     <div class="content">
                       <form  action="{{ post.get_absolute_url }}" method="post">
                         {% csrf_token %}
-                        <input type="hidden" name="post" value={{post.id}}>
+                        <input type="hidden" name="parent_id" id="parent_id" value="">
                         <div class="row">
-                          <div class="col-md-6 col-sm-12">
-                            <fieldset>
-                              <input name="name" type="text"  placeholder="Your name" required="">
-                            </fieldset>
-                          </div>
-                          <div class="col-md-6 col-sm-12">
-                            <fieldset>
-                              <input name="email" type="text"  placeholder="Your email" required="">
-                            </fieldset>
-                          </div>
-                          <div class="col-md-12 col-sm-12">
-                            <fieldset>
-                              <input name="subject" type="text"  placeholder="Subject">
-                            </fieldset>
-                          </div>
                           <div class="col-lg-12">
                             <fieldset>
-                              <textarea name="message"   placeholder="Type your comment" required=""></textarea>
+                              <textarea name="message"   id = "message" placeholder="Type your comment" required=""></textarea>
                             </fieldset>
                           </div>
                           <div class="col-md-6 col-sm-12">{{form.captcha}}</div>
@@ -166,5 +153,11 @@
     </div>
   </section>
 
+  <script>
+    function set_value(id){
+      document.getElementById('parent_id').value = id;
+      window.location.href = '#message'
+    }
+  </script>
 
     {% endblock %}

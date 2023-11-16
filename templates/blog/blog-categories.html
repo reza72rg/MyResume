@@ -7,7 +7,7 @@
                     {% for cat in post.category.all %}
                     <div class="content">
                       <ul>
-                        <li><a href="{% url 'blog:category' cat_name=cat.name %}">{{ cat.name }} </a>{% if not forloop.last %},{% endif%}</a></li>                  
+                        <li><a href="{% url 'blog:category' cat_name=cat.name|slugify %}">{{ cat.name }} </a>{% if not forloop.last %},{% endif%}</a></li>                  
                       </ul>
                     </div>
                     {% endfor %}

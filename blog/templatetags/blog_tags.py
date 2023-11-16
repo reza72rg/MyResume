@@ -2,12 +2,9 @@ from django import template
 from blog.models import Post,Category,Comment,VoteUser
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 from django.shortcuts import render,get_object_or_404,redirect
-from django.utils import timezone
-from blog.models import Post
+from django.utils import timezone 
+
 register = template.Library()
-
-
-
 @register.simple_tag(name='totalpost')
 def total_sum():
     posts = Post.objects.filter(status=1).count()
@@ -41,6 +38,7 @@ def categories_posts():
         cat_dict[name]=posts.filter(category=name).count()
     nule_new=dict(sorted(cat_dict.items(),key=lambda x:x[1],reverse=True))
     return {'cat_dict':nule_new}
+
 
 @register.simple_tag(name='comments_count')
 def function(pid):

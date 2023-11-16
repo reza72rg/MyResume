@@ -30,10 +30,10 @@ class PostAdmin(SummernoteModelAdmin):
     
 class PostComment(admin.ModelAdmin):
     date_hierarchy = 'created_date'
-    empty_value_display = '-empty-'
-    list_display = ('name' ,'post','created_date','approach')
+    
+    list_display = ('user' ,'post','parent','created_date','approach')
     list_filter = ('post','approach',)
-    search_fields = ['name','post']
+    search_fields = ['user','post']
     
 admin.site.register(Category)
 admin.site.register(Comment,PostComment)

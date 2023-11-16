@@ -72,7 +72,7 @@
                       <a href="{{ post.get_absolute_url }}"><h4>{{post.title}}</h4></a>
                       <ul class="post-info">
                         <li><a href="{% url 'blog:author' author_username=post.author.username%}">{{post.author.get_full_name}}</a></li>
-                        <li><a >{{post.published_date|naturalday}}</a></li>
+                        <li><a>{{post.published_date|naturalday}}</a></li>
                         <li><a>{{post.counted_views|intcomma}} Views</a></li>
                         <li><a>{% comments_count post.id %} Comments</a></li>
                         <li><a>{% likes_count post.id %} Like</a></li>
@@ -99,7 +99,7 @@
                   <ul class="page-numbers">
                     {% if posts.has_previous %}
                     <li class="page-item">
-                      <a href="?page={{ posts.previous_page_number }}" class="page-link" aria-label="Previous">
+                      <a href="?page={{ posts.previous_page_number }}{% if request.GET.q %}&q={{request.GET.q}}{% endif %}" class="page-link" aria-label="Previous">
                         <span aria-hidden="true">
                           <span class="fa fa-angle-double-left"></span>
                         </span>
@@ -107,11 +107,15 @@
                     </li>
                     {% endif %}
                     {% for i in posts.paginator.page_range %}
-                    <li class="page-item "><a href="?page={{i}}" class="page-link">{{i}}</a></li>
+                    {% if posts.number == i %}
+                    <li class="page-item active"><a href="?page={{i}}{% if request.GET.q %}&q={{request.GET.q}}{% endif %}" class="page-link">{{i}}</a></li>
+                    {% else %}
+                    <li class="page-item "><a href="?page={{i}}{% if request.GET.q %}&q={{request.GET.q}}{% endif %}" class="page-link">{{i}}</a></li>
+                    {% endif %}
                     {% endfor%}
 							    	{% if posts.has_next %}
                     <li class="page-item">
-                      <a href="?page={{ posts.next_page_number }}" class="page-link" aria-label="Next">
+                      <a href="?page={{ posts.next_page_number }}{% if request.GET.q %}&q={{request.GET.q}}{% endif %}" class="page-link" aria-label="Next">
                         <span aria-hidden="true">
                           <span class="fa fa-angle-double-right"></span>
                         </span>
@@ -139,7 +143,7 @@
 
                 {% categories_posts %}
      
-
+                {% include 'blog/blog-all-tags.html' %}	
                 
 
 

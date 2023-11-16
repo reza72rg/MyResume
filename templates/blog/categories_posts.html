@@ -7,8 +7,7 @@
                     {% for name,count in cat_dict.items %}
                     <div class="content">
                       <ul>
-                        <li><a href="">- {{ name }}  ----- {{count}} </a></li>
-                     
+                        <li><a href="{% url 'blog:category' cat_name=name|slugify %}">- {{ name }}  ----- {{count}} </a></li>
                       </ul>
                     </div>
                     {% endfor %}
