@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from website.forms import  ContactForm,NewsLetterForm
 from django.contrib import messages
-from website.models import Information,My_Skill,Skill,UserImage
+from website.models import Information,My_Skill,Skill,UserImage,ProfessionalExperience,Education
 from django.shortcuts import render,get_object_or_404,redirect
 
 def index_view(request):
@@ -17,7 +17,10 @@ def about_view(request):
     return render(request ,'website/about.html',context)
 
 def resume_view(request):
-    return render(request ,'website/Resume.html')
+    profess = ProfessionalExperience.objects.filter(status=1)
+    educate = Education.objects.filter(status=1)
+    context = {'profess':profess,'educate':educate}
+    return render(request ,'website/Resume.html',context)
 
 def skill_view(request):
     info  = Skill.objects.all().first()

@@ -80,7 +80,7 @@ class Post(MainModel):
         return self.title
     
     def like_count(self):
-       return self.upost.count()
+        return self.upost.count()
    
     def user_can_like(self, user):
         user_like = user.uvote.filter(post = self)

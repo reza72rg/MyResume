@@ -79,8 +79,26 @@ class Information(MainModel):
     
     def __str__(self):
         return str(self.author)
-
-
+class Education(MainModel):
+    author = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
+    title = models.CharField(max_length=100)
+    education = models.CharField(max_length=100)
+    year = models.CharField(max_length=100)
+    status = models.BooleanField(default=False)
+    def __str__(self):
+        return str(self.author)
+    
+class ProfessionalExperience(MainModel):
+    author = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
+    title = models.CharField(max_length=100)
+    education = models.CharField(max_length=100)
+    year = models.CharField(max_length=100)
+    message = models.TextField()
+    status = models.BooleanField(default=False)
+    def __str__(self):
+        return str(self.author)
+    
+    
 class Skill(models.Model):
     author = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
     title = models.TextField()

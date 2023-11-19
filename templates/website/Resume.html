@@ -23,51 +23,28 @@
   
           <div class="row">
             <div class="col-lg-6">
-              <h3 class="resume-title">Sumary</h3>
-              <div class="resume-item pb-0">
-                <h4>Brandon Johnson</h4>
-                <p><em></em></p>
-                <ul>
-                  <li>Portland par 127,Orlando, FL</li>
-                  <li>(123) 456-7891</li>
-                  <li>alice.barkley@example.com</li>
-                </ul>
-              </div>
-  
               <h3 class="resume-title">Education</h3>
+              {% for edu in educate %}
               <div class="resume-item">
-                <h4>Software Development Engineers</h4>
-                <h5>2018 - 2022</h5>
-                <p><em>Islamic Azad University-South Tehran Branch</em></p>
-      
+                <h4>{{edu.title}}</h4>
+                <h5>{{edu.year}}</h5>
+                <p><em>{{edu.education}}</em></p>
               </div>
-              <div class="resume-item">
-                <h4>Bachelor of Electrical Engineering</h4>
-                <h5>2010 - 2014</h5>
-                <p><em>Enghelāb-e Eslāmi Technical College</em></p>
-                <p>I’m actually not funny. I’m just really mean and people think I’m joking.</p>
-              </div>
+              {% endfor %}
+              
             </div>
             <div class="col-lg-6">
               <h3 class="resume-title">Professional Experience</h3>
               <div class="resume-item">
-                <h4>Back-End Developer</h4>
-                <h5>2022 - Present </h5>
-                <p><em>Freelancer</em></p>
+                {% for pro in profess %}
+                <h4>{{pro.title}}</h4>
+                <h5>{{pro.year}} </h5>
+                <p><em>{{pro.education}}</em></p>
                 <ul>
-                  <li>A backend developer is responsible for writing backend codes of any website and how is it going to communicate when the user will trigger any particular action. Besides, they take care of the whole wireframe of the website, its architecture, coding, scripting, and database accessibility.</li>
-                  <li> Moreover, they are also responsible for debugging and testing the backend applications.</li>
+                  <li>{{pro.message|safe}}.</li>
+                  
                 </ul>
-              </div>
-              <div class="resume-item">
-                <h4>Second level technical ATM repair expert</h4>
-                <h5>2018 - Present</h5>
-                <p><em>Adonis</em></p>
-                <ul>
-                  <li>Hardware and software repairs of ATM machines of Mellat, Saman and Pasargad banks</li>
-                  <li>Installation, testing and repairs of hardware and software. </li>
-                  <li>CRS self-receiving devices and NCR, EastCom, Nixdorf WinCor ATM</li>
-                </ul>
+                 {% endfor %}
               </div>
             </div>
           </div>

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django_summernote.admin import SummernoteModelAdmin
 # Register your models here.
-from website.models import Contact,NewsLetter,Information,Skill,My_Skill,UserImage
+from website.models import Contact,NewsLetter,Information,Skill,My_Skill,UserImage,Education,ProfessionalExperience
 # Register your models here.
 
 class ContactAdmin(admin.ModelAdmin):
@@ -68,3 +68,21 @@ class PostAdmin(SummernoteModelAdmin):
         return ['about_me']
 
 
+@admin.register(ProfessionalExperience)
+class ProfessionalExperienceAdmin(SummernoteModelAdmin):
+    def get_fields(self, request, obj=None):
+        return ["author", "title","education","year","status","message"]
+        
+    def get_list_display(self, request):
+        return ["author", "title","year","status"]
+    
+    def get_summernote_fields (self,request):
+        return ['message']
+    
+@admin.register(Education)
+class EducationAdmin(SummernoteModelAdmin):
+    def get_fields(self, request, obj=None):
+        return ["author", "title","education","year",'status']
+        
+    def get_list_display(self, request):
+        return ["author", "title","year",'status']

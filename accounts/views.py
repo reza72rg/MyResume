@@ -78,8 +78,12 @@ class RegisterView(View):
         if form.is_valid():
             cd = form.cleaned_data
             User.objects.create_user(cd['username'],cd['email'],cd['password1'])
+            user = authenticate(request, username=cd['username'], password=cd['password1'])
+            user.save()
             messages.success(request,'Thanks . Your registration was successfuly plase log in.','success')
-            return redirect('accounts:login')
+            if user is not None:
+                login(request, user)
+                return redirect("/")
         else:
             messages.error(request,'Please input the correct password','danger')
             

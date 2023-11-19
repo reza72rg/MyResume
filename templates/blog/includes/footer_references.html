@@ -1,4 +1,5 @@
 {% load static %}
+
 <!-- Bootstrap core JavaScript -->
 <script src="{% static 'blog/vendor/jquery/jquery.min.js' %} "></script>
 <script src="{% static 'blog/vendor/bootstrap/js/bootstrap.bundle.min.js' %} "></script>
@@ -20,8 +21,8 @@
       }
   }
 </script>
-  <link rel="stylesheet" type="text/css" href="{% static 'website/css/toastr.min.css' %}" media="all">
-  <script type="text/javascript" src="{% static 'website/js/toastr.min.js' %}"></script>  
+  <link rel="stylesheet" type="text/css" href="{% static 'blog/assets/css/toastr.min.css' %}" media="all">
+  <script type="text/javascript" src="{% static 'blog/assets/js/toastr.min.js' %}"></script>  
   <script>
   {% if messages %}
   document.addEventListener("DOMContentLoaded", function(event) {
@@ -40,7 +41,7 @@
 </script>
 
   <!-- Template Main JS File -->
-  <script src="{% static 'website/js/main.js' %}"></script>
+  <script src="{% static 'blog/assets/js/main.js' %}"></script>
   <script>
     $(function() {
 
@@ -67,3 +68,30 @@
 });
 
   </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script type="text/javascript">
+  $('.likebutton').click(function(){
+    var catid;
+  catid = $(this).attr("data-catid");
+
+  $.ajax(
+  {
+      type:"GET",
+      url: "{% url 'blog:like' %}",
+      data:{
+               post_id: catid
+      },
+      success: function( data ) {
+        if (data["error"]) {
+            toastr.error("you disliked this post")
+            const button = document.getElementById("like{{post.id}}").innerHTML = "like";
+            
+        }else if (data["success"]) {
+        toastr.success("you liked this post") 
+        const button = document.getElementById("like{{post.id}}").innerHTML = "DisLike";
+             
+      }
+    }
+   })
+});
+</script>

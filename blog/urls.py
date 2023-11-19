@@ -12,7 +12,6 @@ urlpatterns = [
     path('author/<str:author_username>/',blog_view,name ='author'),
     path('search/',Searchview.as_view(),name ='search'),
     path('rss/feed/', LatestEntriesFeed()),
-    path('like-<int:post_id>/',LikePost_View.as_view(), name ='like'),
-     path('unlike-<int:post_id>/',UnLikePost_View.as_view(), name ='unlike'),
+    path('like/',LikePost_View, name ='like'),
     ]
  

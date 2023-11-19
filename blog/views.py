@@ -12,6 +12,10 @@ from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from taggit.models import Tag
+from django.http import HttpResponse,HttpResponseRedirect,JsonResponse
+from django.urls import reverse
+
+
 # Create your views here.
 
 def blog_view(request,**kwargs):
@@ -36,7 +40,19 @@ def blog_view(request,**kwargs):
     context = {'posts':posts,'tags':tags} 
     return render (request , 'blog/blog-home.html',context)
 
-
+def LikePost_View(request):
+    post_id = request.GET['post_id']
+    post = get_object_or_404(Post, id = post_id)
+    like = VoteUser.objects.filter(post= post, user= request.user)
+    data = ("item successfully added to cart")
+    if like.exists():
+        like.delete()
+        post.save()
+        return JsonResponse({"error": data})
+    else:
+        VoteUser.objects.create(post= post,  user= request.user)           
+        return JsonResponse({"success": data})
+        
 
 class Blog_Details_View(LoginRequiredMixin, View):
     form_class = CommentForm
@@ -56,7 +72,7 @@ class Blog_Details_View(LoginRequiredMixin, View):
             self.post_instance.counted_views +=1
             self.post_instance.save()
             form = self.form_class()
-            content = {'post':self.post_instance,'comments': self.comment_inctance,'form':form,'can_like':can_like,'images':self.images_instance}#,"replyes":self.reply_inctance
+            content = {'post':self.post_instance,'form':form,'can_like':can_like,'images':self.images_instance,'comments': self.comment_inctance}#,"replyes":self.reply_inctance,
             return render (request , self.template_name,content)
         else:
             return redirect('accounts:login')
@@ -69,10 +85,10 @@ class Blog_Details_View(LoginRequiredMixin, View):
             newcomment.user = request.user
             newcomment.parent_id = parent_id
             newcomment.save()
-            if parent_id== None:
-                messages.success(request,'Thanks . Your comment has been received.','success')
-            else:
+            if parent_id:
                 messages.success(request,'Thanks . Your Reply has been received.','success')
+            else:
+                messages.success(request,'Thanks . Your comment has been received.','success')
         else:
             messages.error(request,'Please inter correct pattern .','error')
         return redirect('blog:blog-details', self.post_instance.id, self.post_instance.slug) 
@@ -97,22 +113,4 @@ class Searchview(View):
 
 
 
-class LikePost_View(LoginRequiredMixin, View):
-    def get(self, request, post_id):
-        post = get_object_or_404(Post, id = post_id)
-        like = VoteUser.objects.filter(post= post, user= request.user)
-        if like.exists():
-            messages.error(request, 'You already liked this post','danger')
-        else:
-            VoteUser.objects.create(post= post,  user= request.user)           
-            messages.success(request, 'you liked this post','success')
-        return redirect('blog:blog-details' , post.id, post.slug)
         
-class UnLikePost_View(LoginRequiredMixin, View):
-    def get(self, request, post_id):
-        post = get_object_or_404(Post, id = post_id)
-        like = VoteUser.objects.filter(post= post, user= request.user)
-        if like.exists():
-            like.delete()
-            messages.success(request, 'You unlike  this post','success')
-        return redirect('blog:blog-details' , post.id, post.slug)
