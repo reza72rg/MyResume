@@ -6,13 +6,21 @@ from django.core.exceptions import ValidationError
 
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField()
+    
+    def clean_username(self):
+            username = self.cleaned_data.get('username')
+            user = User.objects.filter(username=username).exists()
+            if user:
+                raise ValidationError('This username already exists',code="username_exists")
+            return username.strip() 
+        
     def clean_email(self):
-            email = self.cleaned_data['email']
+            email = self.cleaned_data.get('email')
             user = User.objects.filter(email=email).exists()
             if user:
-                raise ValidationError('this email already exists')
-            return email 
-        
+                raise ValidationError('This email already exists',code="email_exists")
+            return email.strip() 
+      
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']

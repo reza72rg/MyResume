@@ -68,7 +68,7 @@
                         <li><a>{{post.published_date|date:"d M Y"}}</a></li>
                         <li><a>{{post.counted_views|intcomma}} Views</a></li>
                         <li><a>{{ comment | length }} Comments</a></li>
-                        <li><a id="like-count">{{post.like_count}} </a> <a>Like</a> </li>
+                        <li><a id="count1">{{post.upost.all.count}} </a> <a>Like</a> </li>
                       </ul>
                       {{ post.content|safe}}
                       <div class="post-options">
@@ -77,9 +77,20 @@
                             <ul class="post-tags">
                             
                               {% if request.user.is_authenticated and not can_like  %}
-                              <button class="likebutton btn btn-primary" id="like{{post.id}}" data-catid="{{ post.id }}">Like</button>
+                              <li>
+                                <a>
+                                  <i style="font-size: 20px;" id="like" class="likebutton fa fa-heart-o" data-catid="{{ post.id }}"></i>
+                                  <span id="count">{{post.upost.all.count}}</span> Like
+                                </a>
+                              </li>
+                              
                               {% elif request.user.is_authenticated and  can_like  %}
-                              <button class="likebutton btn btn-primary" id="like{{post.id}}" data-catid="{{ post.id }}">DisLike</button>
+                              <li>
+                                <a>
+                                  <i style="font-size: 20px;" id="like" class="likebutton fa fa-heart" data-catid="{{ post.id }}"></i>
+                                  <span id="count">{{post.upost.all.count}}</span> Like
+                                </a>
+                              </li>
                               {% endif %}
                               
 
