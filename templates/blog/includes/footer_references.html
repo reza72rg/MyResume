@@ -1,5 +1,7 @@
 {% load static %}
+{% load compress %}
 
+{% compress js %}
 <!-- Bootstrap core JavaScript -->
 <script src="{% static 'blog/vendor/jquery/jquery.min.js' %} "></script>
 <script src="{% static 'blog/vendor/bootstrap/js/bootstrap.bundle.min.js' %} "></script>
@@ -21,7 +23,6 @@
       }
   }
 </script>
-  <link rel="stylesheet" type="text/css" href="{% static 'blog/assets/css/toastr.min.css' %}" media="all">
   <script type="text/javascript" src="{% static 'blog/assets/js/toastr.min.js' %}"></script>  
   <script>
   {% if messages %}
@@ -102,3 +103,4 @@
    })
 });
 </script>
+{% endcompress %}

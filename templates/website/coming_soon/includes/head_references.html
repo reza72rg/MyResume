@@ -1,0 +1,11 @@
+{% load static %}
+{% load compress %}
+
+<!-- Bootstrap core CSS -->
+{% compress css %}
+<!-- Additional CSS Files -->
+<link href="{% static 'website/coming_soon/css/bootstrap.min.css'%} " rel="stylesheet">
+<link href="{% static 'website/coming_soon/css/font-awesome/css/all.min.css'%} " rel="stylesheet">
+<link href="{% static 'website/coming_soon/css/main.css'%} " rel="stylesheet">
+<link href="{% static 'website/coming_soon/css/toastr.min.css' %}" rel="stylesheet">
+{% endcompress %}

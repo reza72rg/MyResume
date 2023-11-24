@@ -34,11 +34,12 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'django_summernote',
     'django_social_share',
+    "compressor",
+ 
     
-   
+   ]
+comingsoon = True
 
-
-]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -49,7 +50,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     "debug_toolbar.middleware.DebugToolbarMiddleware",
+    #"mysite.middlewares.custom_middleware.CustomMiddleware",
 ]
+
+
 
 
 ROOT_URLCONF = 'mysite.urls'
@@ -147,3 +151,11 @@ INTERNAL_IPS = [
     "127.0.0.1",
     # ...
 ]
+
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # other finders..
+    'compressor.finders.CompressorFinder',
+)

@@ -86,8 +86,8 @@ class RegisterView(View):
             if user is not None:
                 login(request, user)
                 return redirect("/")
-        else:
-            messages.error(request,'Please input the correct password','danger')
+        #else:
+         #   messages.error(request,'Please input the correct password','danger')
             
         return render(request,self.template_name,{'form':form})
 

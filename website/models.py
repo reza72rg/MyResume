@@ -49,12 +49,7 @@ class Contact(models.Model):
     
     def __str__(self):
         return self.name
-    
-    
-class NewsLetter(models.Model):
-    email = models.EmailField()
-    def __str__(self):
-        return self.email
+
 
 class Information(MainModel):
     author = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
@@ -71,10 +66,10 @@ class Information(MainModel):
     linkedin = models.CharField(max_length=100,null=True)
     website = models.CharField(max_length=100)
     birthday = models.DateField()
-    age = models.PositiveIntegerField(default=0)
     degree = models.CharField(max_length=50)
     freelance = models.CharField(max_length=50)
     about_me= models.TextField()
+    about_my_resume= models.TextField(null=True)
     my_works = models.CharField(max_length=255,null=True) 
     
     def __str__(self):
@@ -119,3 +114,9 @@ class UserImage(MainModel):
     image_more = models.ImageField(upload_to=UploadToPathAndRename("website"),default='website/defualt.jpg')
 
 
+class NewsLetter(models.Model):
+    email = models.EmailField()
+    
+    def __str__(self):
+        return self.email 
+    

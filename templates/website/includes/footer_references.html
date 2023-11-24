@@ -1,5 +1,7 @@
 {% load static %}
+{% load compress %}
   <!-- Vendor JS Files -->
+  {% compress js %}
   <script src="{% static 'website/vendor/purecounter/purecounter_vanilla.js' %}"></script>
   <script src="{% static 'website/vendor/aos/aos.js' %}"></script>
   <script src="{% static 'website/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
@@ -13,7 +15,6 @@
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="{% static 'website/css/toastr.min.css' %}" media="all">
   <script type="text/javascript" src="{% static 'website/js/toastr.min.js' %}"></script>  
   <script>
   {% if messages %}
@@ -60,3 +61,4 @@
 });
 
   </script>
+{% endcompress %}

@@ -12,8 +12,8 @@ from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from taggit.models import Tag
-from django.http import HttpResponse,HttpResponseRedirect,JsonResponse
-from django.urls import reverse
+from django.http import JsonResponse
+
 
 
 # Create your views here.
@@ -65,12 +65,12 @@ class Blog_Details_View(LoginRequiredMixin, View):
         #self.reply_inctance = Comment.objects.filter(approach=True,parent__isnull=False,post=self.post_instance.id).order_by('created_date')        
         return super().setup(request, *args, **kwargs)
     def get(self,request,*args, **kwargs):
+        form = self.form_class()
         if not self.post_instance.login_require:
             can_like = False
             if request.user.is_authenticated and self.post_instance.user_can_like(request.user):
                 can_like = True
             self.post_instance.counted_views +=1
-            self.post_instance.save()
             form = self.form_class()
             content = {'post':self.post_instance,'form':form,'can_like':can_like,'images':self.images_instance,'comments': self.comment_inctance}#,"replyes":self.reply_inctance,
             return render (request , self.template_name,content)
