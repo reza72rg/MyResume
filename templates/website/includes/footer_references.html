@@ -1,6 +1,10 @@
 {% load static %}
 {% load compress %}
   <!-- Vendor JS Files -->
+
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
   {% compress js %}
   <script src="{% static 'website/vendor/purecounter/purecounter_vanilla.js' %}"></script>
   <script src="{% static 'website/vendor/aos/aos.js' %}"></script>
@@ -12,10 +16,9 @@
   <script src="{% static 'website/vendor/waypoints/noframework.waypoints.js' %}"></script>
   <script src="{% static 'website/vendor/php-email-form/validate.js' %}"></script>
   <script src="{% static 'website/js/toastr.min.js' %}"></script>
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
   <script type="text/javascript" src="{% static 'website/js/toastr.min.js' %}"></script>  
+  <script src="{% static 'website/js/main.js' %}"></script>
+  {% endcompress %}
   <script>
   {% if messages %}
   document.addEventListener("DOMContentLoaded", function(event) {
@@ -34,7 +37,7 @@
 </script>
 
   <!-- Template Main JS File -->
-  <script src="{% static 'website/js/main.js' %}"></script>
+
   <script>
     $(function() {
 
@@ -61,4 +64,4 @@
 });
 
   </script>
-{% endcompress %}
+

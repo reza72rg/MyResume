@@ -1,18 +1,19 @@
 {% load static %}
 {% load compress %}
-
-{% compress js %}
-<!-- Bootstrap core JavaScript -->
 <script src="{% static 'blog/vendor/jquery/jquery.min.js' %} "></script>
 <script src="{% static 'blog/vendor/bootstrap/js/bootstrap.bundle.min.js' %} "></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+{% compress js %}
+<!-- Bootstrap core JavaScript -->
 <!-- Additional Scripts -->
 <script src="{% static 'blog/assets/js/custom.js' %} "></script>
 <script src="{% static 'blog/assets/js/owl.js' %} "></script>
 <script src="{% static 'blog/assets/js/slick.js' %} "></script>
 <script src="{% static 'blog/assets/js/isotope.js' %} "></script>
 <script src="{% static 'blog/assets/js/accordions.js' %} "></script>
-
+<script type="text/javascript" src="{% static 'blog/assets/js/toastr.min.js' %}"></script>  
+<script src="{% static 'blog/assets/js/main.js' %}"></script>
+{% endcompress %}
 <script language = "text/Javascript"> 
   cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
   function clearField(t){                   //declaring the array outside of the
@@ -23,7 +24,7 @@
       }
   }
 </script>
-  <script type="text/javascript" src="{% static 'blog/assets/js/toastr.min.js' %}"></script>  
+
   <script>
   {% if messages %}
   document.addEventListener("DOMContentLoaded", function(event) {
@@ -42,7 +43,7 @@
 </script>
 
   <!-- Template Main JS File -->
-  <script src="{% static 'blog/assets/js/main.js' %}"></script>
+  
   <script>
     $(function() {
 
@@ -69,7 +70,7 @@
 });
 
   </script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
   <script type="text/javascript">
   $('.likebutton').click(function(){
     var catid;
@@ -103,4 +104,3 @@
    })
 });
 </script>
-{% endcompress %}

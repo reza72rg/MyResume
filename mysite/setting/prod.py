@@ -48,3 +48,19 @@ SESSION_COOKIE_SAMESITE = 'Strict'
 
 CSRF_COOKIE_SECURE = True
 
+STATICFILES_FINDERS = ( ##django compressor
+'django.contrib.staticfiles.finders.FileSystemFinder',
+'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+# other finders..
+'compressor.finders.CompressorFinder',
+)
+
+
+COMPRESS_ENABLED = True
+COMPRESS_ROOT = STATIC_ROOT ##django compressor
+COMPRESS_OFFLINE = True
+
+if not COMPRESS_ENABLED: ##django compressor
+    COMPRESS_ENABLED = True
+COMPRESS_CSS_FILTERS = ["compressor.filters.cssmin.CSSMinFilter"]
+COMPRESS_JS_FILTERS = ["compressor.filters.jsmin.JSMinFilter"] ##django compressor

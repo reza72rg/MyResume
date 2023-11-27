@@ -1,15 +1,16 @@
 {% load static %}
 {% load compress %}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>  
 
 {% compress js %}
-
 <script src="{% static 'website/coming_soon/scripts/jquery.slim.min.js' %} "></script>
 <script src="{% static 'website/coming_soon/scripts/bootstrap.bundle.min.js' %} "></script>
 <script src="{% static 'website/coming_soon/scripts/main.js' %} "></script>
 <script type="text/javascript" src="{% static 'website/coming_soon/scripts/toastr.min.js' %}"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>  
+<script type="text/javascript" src="{% static 'blog/assets/js/toastr.min.js' %}"></script>  
+{% endcompress %}
 <script language = "text/Javascript"> 
     cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
     function clearField(t){                   //declaring the array outside of the
@@ -20,7 +21,7 @@
         }
     }
   </script>
-    <script type="text/javascript" src="{% static 'blog/assets/js/toastr.min.js' %}"></script>  
+
     <script>
     {% if messages %}
     document.addEventListener("DOMContentLoaded", function(event) {
@@ -37,4 +38,3 @@
     });
   {% endif %}
   </script>
-{% endcompress %}

@@ -35,10 +35,13 @@ INSTALLED_APPS = [
     'django_summernote',
     'django_social_share',
     "compressor",
- 
+    "cssmin",
+    "jsmin",
+
+
     
    ]
-comingsoon = True
+comingsoon = False
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -153,9 +156,3 @@ INTERNAL_IPS = [
 ]
 
 
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    # other finders..
-    'compressor.finders.CompressorFinder',
-)

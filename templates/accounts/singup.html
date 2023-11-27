@@ -40,11 +40,11 @@
 		      	</div>
 		      	<h3 class="text-center mb-4">Registration Info</h3>
 						<form action="#" class="login-form">
-					
+					{{form.username.errors}}
 		      		<div class="form-group">
 		      			<input type="text" name="username" class="form-control rounded-left" placeholder="Username" required>
 		      		</div>
-				
+					{{form.email.errors}}
 	            <div class="form-group d-flex">
 	              <input type="email" name="email" class="form-control rounded-left" placeholder="Enter your Email" required>
 	            </div>
@@ -65,15 +65,16 @@
 			</div>
 		</div>
 	</section>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 	{% compress js %}
 	<script src="{% static 'login/js/jquery.min.js' %}"></script>
 	<script src="{% static 'login/js/popper.js' %}"></script>
 	<script src="{% static 'login/js/bootstrap.min.js' %}"></script>
 	<script src="{% static 'login/js/main.js' %}"></script>
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
   <script type="text/javascript" src="{% static 'login/js/toastr.min.js' %}"></script>  
+  {% endcompress %}
   <script>
   {% if messages %}
   document.addEventListener("DOMContentLoaded", function(event) {
@@ -90,7 +91,7 @@
   });
 {% endif %}
 </script>
-	{% endcompress %}
+
 
 
 </form>
