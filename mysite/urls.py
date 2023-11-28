@@ -1,6 +1,4 @@
-from django.contrib import admin
-from mysite.settings import comingsoon
-from website.views import coming_view 
+from django.contrib import admin 
 from django.urls import path ,include
 from django.conf import settings
 from django.conf.urls.static import static
@@ -12,20 +10,8 @@ sitemaps = {
     "static": StaticViewSitemap,
     "blog": BlogSitemap
 }
-if comingsoon:
-    urlpatterns = [
-        path('',coming_view, name ='coming'),
-        path('admin/', admin.site.urls),
-        path('captcha/', include('captcha.urls')),
-        path('blog/',coming_view, name ='coming'),
-        path('accounts/',coming_view, name ='coming'),
-        path("__debug__/", include("debug_toolbar.urls")),
-    
-    ]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    
-else:
-        
-    urlpatterns = [
+     
+urlpatterns = [
         path('admin/', admin.site.urls),
         path('',include('website.urls')),
         path('blog/',include('blog.urls')),  

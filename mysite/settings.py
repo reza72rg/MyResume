@@ -41,7 +41,7 @@ INSTALLED_APPS = [
 
     
    ]
-comingsoon = False
+comingsoon = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -53,7 +53,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     "debug_toolbar.middleware.DebugToolbarMiddleware",
-    #"mysite.middlewares.custom_middleware.CustomMiddleware",
+    "mysite.middlewares.custom_middleware.CustomMiddleware",
 ]
 
 

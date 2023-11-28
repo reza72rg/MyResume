@@ -49,7 +49,7 @@
               </button>
             </div>
             <div class="modal-body" >
-              <form action="{% url 'coming' %}" method="post">
+              <form action="{% url 'website:coming' %}" method="post">
                 {% csrf_token %}
                 <div class="form-group">
                   <label for="recipient-name" class="form-control-label">Enter you e-mail to get notified when we launch</label>
@@ -70,3 +70,4 @@
 {% include 'website/coming_soon/includes/footer_references.html' %}
   </body>
 </html>
+
