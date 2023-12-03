@@ -53,7 +53,7 @@ class PostAdmin(SummernoteModelAdmin):
     inlines = [MyImagekillInline]
 
     def get_fields(self, request, obj=None):
-        return ["image","author", "job", "title", 'address',"city", "phone", "email", "whatsapp", "telegram", "instagram", \
+        return ["image","author", "job", "title", 'address',"city", "phone", "git","email", "whatsapp", "telegram", "instagram", \
             "linkedin","website","birthday","degree","freelance","about_me","my_works","about_my_resume"]
         
     def get_list_display(self, request):

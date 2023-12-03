@@ -41,7 +41,7 @@ INSTALLED_APPS = [
 
     
    ]
-comingsoon = True
+comingsoon = False
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

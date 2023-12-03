@@ -13,8 +13,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from taggit.models import Tag
 from django.http import JsonResponse
-
-
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 # Create your views here.
 
@@ -54,37 +54,42 @@ def LikePost_View(request):
         return JsonResponse({"success": data})
         
 
-class Blog_Details_View(LoginRequiredMixin, View):
+class Blog_Details_View(View):
     form_class = CommentForm
     template_name = 'blog/blog-details.html'
     
     def setup(self, request, *args, **kwargs):
         self.post_instance = get_object_or_404(Post,pk=kwargs['post_id'],slug= kwargs['post_slug'])
         self.images_instance = PostImage.objects.filter(product_id =kwargs['post_id'])
-        self.comment_inctance = Comment.objects.filter(approach=True,parent=None,post=self.post_instance.id).order_by('created_date')        
-        #self.reply_inctance = Comment.objects.filter(approach=True,parent__isnull=False,post=self.post_instance.id).order_by('created_date')        
+        self.comment_instance = Comment.objects.filter(approach=True,parent=None,post=self.post_instance.id).order_by('created_date')        
+        #self.reply_instance = Comment.objects.filter(approach=True,parent__isnull=False,post=self.post_instance.id).order_by('created_date')        
         return super().setup(request, *args, **kwargs)
     def get(self,request,*args, **kwargs):
         form = self.form_class()
-        if not self.post_instance.login_require:
+        if not self.post_instance.login_require or request.user.is_authenticated:
+            print('salaam')
             can_like = False
             if request.user.is_authenticated and self.post_instance.user_can_like(request.user):
                 can_like = True
-            self.post_instance.counted_views +=1
+            self.post_instance.counted_views+=1
+            self.post_instance.save()
             form = self.form_class()
-            content = {'post':self.post_instance,'form':form,'can_like':can_like,'images':self.images_instance,'comments': self.comment_inctance}#,"replyes":self.reply_inctance,
+            content = {'post':self.post_instance,'form':form,'can_like':can_like,'images':self.images_instance,'comments': self.comment_instance}#,"replyes":self.reply_inctance,
             return render (request , self.template_name,content)
         else:
-            return redirect('accounts:login')
+            return redirect("/accounts/login?next="+request.path)
     def post(self,request,*args, **kwargs):
         parent_id = request.POST.get('parent_id')
         form = self.form_class(request.POST)        
         if form.is_valid():
-            newcomment = form.save(commit=False)
-            newcomment.post = self.post_instance
-            newcomment.user = request.user
-            newcomment.parent_id = parent_id
-            newcomment.save()
+            endcomment = form.save(commit=False)
+            endcomment.post = self.post_instance
+            if request.user.is_authenticated:
+                endcomment.user = request.user
+            else:
+                endcomment.user = None
+            endcomment.parent_id = parent_id
+            endcomment.save()
             if parent_id:
                 messages.success(request,'Thanks . Your Reply has been received.','success')
             else:

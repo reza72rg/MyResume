@@ -17,7 +17,7 @@ class PostAdmin(SummernoteModelAdmin):
         return ["image", "author", "title", 'tags',"slug", "content", "category", "counted_views", "status", "published_date",  "login_require"]
 
     def get_list_display(self, request):
-        return ["image_tag","author", "title", "counted_views", "status"]
+        return ["image_tag","author", "title", "counted_views", "status","login_require"]
 
     def get_search_fields(self, request):
         return ["author", "title", "counted_views", "status"]

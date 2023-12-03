@@ -60,6 +60,7 @@ class Information(MainModel):
     city = models.CharField(max_length=30)
     phone = models.CharField(max_length=15)
     email = models.EmailField()
+    git = models.CharField(max_length=100)
     whatsapp = models.CharField(max_length=100)
     telegram = models.CharField(max_length=100)
     instagram = models.CharField(max_length=100)

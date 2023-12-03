@@ -35,14 +35,15 @@ class UserLoginView(View):
         form = self.form_class(request=request,data=request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            user = authenticate(request, username=cd['username'], password=cd['password'])
-            username = request.POST.get("username")
+            user = authenticate(request, username=cd['username'], password=cd['password'])    
             if user is not None:
-                login(request, user)       
+                login(request, user)
+                print('next accounts= ',next )       
                 if next:
-                    messages.success(request,f'Hi {username} you are login successfuly','success')
+                    print('next accounts next= ',next )   
+                    messages.success(request,f'Hi {user} you are login successfully','success')
                     return redirect(next)
-                messages.success(request,f'Hi {username} you are login successfuly','success')
+                messages.success(request,f'Hi {user} you are login successfully','success')
                 return redirect('/')
                 # Redirect to a success page.
             
@@ -56,14 +57,14 @@ class UserLogOut(LoginRequiredMixin, View):
     login_url = 'accounts/login.html'  
     def get(self,request):
         logout(request)
-        messages.success(request, 'you are logout successfuly.')
+        messages.success(request, 'you are logout successfully.')
         return redirect('/')
         
    
 
 class RegisterView(View):
     form_class = RegistrationForm
-    template_name = 'accounts/singup.html'
+    template_name = 'accounts/signup.html'
     
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
@@ -79,13 +80,14 @@ class RegisterView(View):
         if form.is_valid():
             cd = form.cleaned_data
             User.objects.create_user(cd['username'],cd['email'],cd['password1'])
-            user = authenticate(request, username=cd['username'], password=cd['password1'])
-            user.save()
-            username = request.POST.get("username")
-            messages.success(request,f'Hi  {username}  . Your registration was successfuly' ,'success')
-            if user is not None:
-                login(request, user)
-                return redirect("/")
+            #user = authenticate(request, username=cd['username'], password=cd['password1'])
+            #user.save()
+            #username = request.POST.get("username")
+            messages.success(request,'Hi . Your registration was successfully \
+                             please login' ,'success')
+            #if user is not None:
+            #    login(request, user)
+            return redirect("accounts:login")
         else:
             messages.error(request,'Please input the correct password','danger')
             
