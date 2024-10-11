@@ -6,7 +6,7 @@ services:
     image: redis
     restart: always
     ports:
-      - "6382:6379"
+      - "6383:6379"
     command: redis-server --save 60 1 --loglevel warning
 
   postgresql_myresume:
@@ -22,7 +22,7 @@ services:
   backend_myresume:
     build: .
     container_name: backend_myresume
-    command: gunicorn core.wsgi --bind 0.0.0.0:8000 --reload
+    command: gunicorn mysite.wsgi --bind 0.0.0.0:8000 --reload
     # command: python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic --noinput gunicorn core.wsgi --bind 0.0.0.0:8000
     volumes:
       - ./core:/app
