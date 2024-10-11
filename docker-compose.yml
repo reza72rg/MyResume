@@ -17,7 +17,7 @@ services:
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
     ports:
-      - "5434:5432"
+      - "5435:5432"
 
   backend_myresume:
     build: .
@@ -38,7 +38,7 @@ services:
       - DATABASE_HOST=${DATABASE_HOST}
       - DATABASE_PORT=${DATABASE_PORT}
     depends_on:
-      - postgres_myresume
+      - postgresql_myresume
       - redis_myresume
 
 

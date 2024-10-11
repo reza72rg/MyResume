@@ -40,8 +40,8 @@ class MainModel(models.Model):
 class Contact(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField()
-    subject = models.CharField(max_length=255, null=True, blank=True)
-    message = models.TextField()
+    subject = models.CharField(max_length=255, null=True, blank=True, default="No Subject")
+    message = models.TextField(default="No message provided")
 
     def __str__(self):
         return self.name
@@ -49,25 +49,25 @@ class Contact(models.Model):
 
 class Information(MainModel):
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    image = models.ImageField(upload_to=UploadToPathAndRename("website"), default='website/defualt.jpg')
-    job = models.CharField(max_length=100)
-    title = models.CharField(max_length=100)
-    address = models.CharField(max_length=100)
-    city = models.CharField(max_length=30)
-    phone = models.CharField(max_length=15)
-    email = models.EmailField()
-    git = models.CharField(max_length=100)
-    whatsapp = models.CharField(max_length=100)
-    telegram = models.CharField(max_length=100)
-    instagram = models.CharField(max_length=100)
-    linkedin = models.CharField(max_length=100, null=True)
-    website = models.CharField(max_length=100)
+    image = models.ImageField(upload_to=UploadToPathAndRename("website"), default='website/default.jpg')
+    job = models.CharField(max_length=100, default="Unemployed")
+    title = models.CharField(max_length=100, default="Untitled")
+    address = models.CharField(max_length=100, default="Not specified")
+    city = models.CharField(max_length=30, default="Not specified")
+    phone = models.CharField(max_length=15, default="Not specified")
+    email = models.EmailField(default="example@example.com")
+    git = models.CharField(max_length=100, default="Not specified")
+    whatsapp = models.CharField(max_length=100, default="Not specified")
+    telegram = models.CharField(max_length=100, default="Not specified")
+    instagram = models.CharField(max_length=100, default="Not specified")
+    linkedin = models.CharField(max_length=100, null=True, default="Not specified")
+    website = models.CharField(max_length=100, default="Not specified")
     birthday = models.DateField(default=date(2000, 1, 1))
-    degree = models.CharField(max_length=50)
-    freelance = models.CharField(max_length=50)
-    about_me = models.TextField()
-    about_my_resume = models.TextField(null=True)
-    my_works = models.CharField(max_length=255, null=True)
+    degree = models.CharField(max_length=50, default="Not specified")
+    freelance = models.CharField(max_length=50, default="Not specified")
+    about_me = models.TextField(default="Not provided")
+    about_my_resume = models.TextField(null=True, default="Not provided")
+    my_works = models.CharField(max_length=255, null=True, default="No works listed")
 
     def __str__(self):
         return str(self.author)
@@ -75,9 +75,9 @@ class Information(MainModel):
 
 class Education(MainModel):
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    title = models.CharField(max_length=100)
-    education = models.CharField(max_length=100)
-    year = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, default="Untitled")
+    education = models.CharField(max_length=100, default="Not specified")
+    year = models.CharField(max_length=100, default="Not specified")
     status = models.BooleanField(default=False)
 
     def __str__(self):
@@ -86,10 +86,10 @@ class Education(MainModel):
 
 class ProfessionalExperience(MainModel):
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    title = models.CharField(max_length=100)
-    education = models.CharField(max_length=100)
-    year = models.CharField(max_length=100)
-    message = models.TextField()
+    title = models.CharField(max_length=100, default="Untitled")
+    education = models.CharField(max_length=100, default="Not specified")
+    year = models.CharField(max_length=100, default="Not specified")
+    message = models.TextField(default="No message provided")
     status = models.BooleanField(default=False)
 
     def __str__(self):
@@ -98,7 +98,7 @@ class ProfessionalExperience(MainModel):
 
 class Skill(models.Model):
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    title = models.TextField()
+    title = models.TextField(default="Untitled Skill")
 
     def __str__(self):
         return str(self.author)
@@ -106,7 +106,7 @@ class Skill(models.Model):
 
 class MySkill(models.Model):
     skill_category = models.ForeignKey(Skill, on_delete=models.SET_NULL, null=True)
-    skill = models.CharField(max_length=20)
+    skill = models.CharField(max_length=20, default="Untitled Skill")
     percent = models.PositiveIntegerField(default=0)
 
     def __str__(self):
@@ -115,11 +115,11 @@ class MySkill(models.Model):
 
 class UserImage(MainModel):
     information = models.ForeignKey(Information, on_delete=models.CASCADE)
-    image_more = models.ImageField(upload_to=UploadToPathAndRename("website"), default='website/defualt.jpg')
+    image_more = models.ImageField(upload_to=UploadToPathAndRename("website"), default='website/default.jpg')
 
 
 class NewsLetter(models.Model):
-    email = models.EmailField()
+    email = models.EmailField(default="example@example.com")
 
     def __str__(self):
         return self.email

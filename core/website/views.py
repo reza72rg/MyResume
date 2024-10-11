@@ -22,10 +22,10 @@ def resume_view(request):
 
 
 def skill_view(request):
-    info  = Skill.objects.all().first()
+    info = Skill.objects.all().first()
     skills = MySkill.objects.all()
-    context = {'skills':skills,'info':info}
-    return render(request ,'website/skill.html',context)
+    context = {'skills': skills, 'info': info}
+    return render(request, 'website/skill.html', context)
 
 
 def contact_view(request):
@@ -33,12 +33,12 @@ def contact_view(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request,'Thanks . Your message has been received.','success')
+            messages.success(request, 'Thanks . Your message has been received.', 'success')
         else:
-            messages.error(request,'Please inter correct pattern .','error')
+            messages.error(request, 'Please inter correct pattern .', 'error')
     form = ContactForm()
-    context = {'form':form}
-    return render(request,'website/contact.html',context)
+    context = {'form': form}
+    return render(request, 'website/contact.html', context)
 
 
 def coming_view(request):
@@ -46,9 +46,9 @@ def coming_view(request):
         form = NewsLetterForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request,'Thanks . Your message has been received.','success')
+            messages.success(request, 'Thanks . Your message has been received.', 'success')
         else:
-            messages.error(request,'Please inter correct pattern .','error')
+            messages.error(request, 'Please inter correct pattern .', 'error')
     form = NewsLetterForm()
-    context = {"form":form}
-    return render(request ,'website/coming_soon/index.html',context)
+    context = {"form": form}
+    return render(request, 'website/coming_soon/index.html',context)
