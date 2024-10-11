@@ -1,22 +1,24 @@
 from django.contrib import admin
 from django_summernote.admin import SummernoteModelAdmin
 # Register your models here.
-from website.models import Contact,Information,Skill,My_Skill,UserImage,Education,ProfessionalExperience,NewsLetter
+from .models import Contact, Information, Skill, MySkill, UserImage\
+    , Education, ProfessionalExperience, NewsLetter
 # Register your models here.
+
 
 class ContactAdmin(admin.ModelAdmin):
     list_display = ('name','email',)
     list_filter = ('email',)
     search_fields = ('name','message')
-    
-admin.site.register(Contact,ContactAdmin)
 
+
+admin.site.register(Contact, ContactAdmin)
 #admin.site.register(Information)
 
 
 
 class MySkillkillInline(admin.TabularInline):
-    model = My_Skill
+    model = MySkill
     fields = ["skill","percent"]
     extra = 1
 

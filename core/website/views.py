@@ -1,17 +1,18 @@
 from django.shortcuts import render
-from website.forms import  ContactForm,NewsLetterForm
+from .forms import ContactForm, NewsLetterForm
 from django.contrib import messages
-from website.models import My_Skill,Skill,UserImage,ProfessionalExperience,Education
-
+from .models import MySkill, Skill, UserImage, ProfessionalExperience, Education
 
 
 def index_view(request):
-    return render(request ,'website/index.html')
+    return render(request, 'website/index.html')
+
 
 def about_view(request):
     img = UserImage.objects.all().first()
-    context = {'img':img}
-    return render(request ,'website/about.html',context)
+    context = {'img': img}
+    return render(request, 'website/about.html', context)
+
 
 def resume_view(request):
     profess = ProfessionalExperience.objects.filter(status=1)
@@ -19,9 +20,10 @@ def resume_view(request):
     context = {'profess':profess,'educate':educate}
     return render(request ,'website/Resume.html',context)
 
+
 def skill_view(request):
     info  = Skill.objects.all().first()
-    skills = My_Skill.objects.all()
+    skills = MySkill.objects.all()
     context = {'skills':skills,'info':info}
     return render(request ,'website/skill.html',context)
 
