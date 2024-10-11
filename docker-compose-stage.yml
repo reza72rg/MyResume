@@ -1,0 +1,63 @@
+version: "3.9"
+
+services:
+  redis_myresume:
+    container_name: redis_myresume
+    image: redis
+    restart: always
+    ports:
+      - "6382:6379"
+    command: redis-server --save 60 1 --loglevel warning
+
+  postgresql_myresume:
+    image: postgres:latest
+    container_name: postgresql_myresume
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    ports:
+      - "5435:5432"
+
+  backend_myresume:
+    build: .
+    container_name: backend_myresume
+    command: gunicorn core.wsgi --bind 0.0.0.0:8000 --reload
+    # command: python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic --noinput gunicorn core.wsgi --bind 0.0.0.0:8000
+    volumes:
+      - ./core:/app
+      - static_volume:/app/static
+      - media_volume:/app/media
+    expose:
+      - "8000"
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+      - DEBUG=${DEBUG}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
+      - DATABASE_ENGINE=${DATABASE_ENGINE}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_HOST=${DATABASE_HOST}
+      - DATABASE_PORT=${DATABASE_PORT}
+    depends_on:
+      - redis_myresume
+      - postgresql_myresume
+
+  nginx_myresume:
+    image: nginx
+    container_name: nginx_myresume
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+      - static_volume:/home/app/static
+      - media_volume:/home/app/media
+    depends_on:
+      - redis_myresume
+      - backend_myresume
+
+volumes:
+  static_volume:
+  media_volume:
